@@ -1,2 +1,1 @@
-# audio-player
-Audio player on pure JS
+# Audio player on pure JS
