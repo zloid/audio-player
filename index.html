@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Audio player on vanilla JS</title>
+    <style>
+        body {font-size: 20px; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; background-color: #f4ecd2;}
+        li {display: block; margin: 10px; background-color: #faca62; border-radius: 5px; height: 40px; text-align: center; line-height: 40px; width: 50%;}
+        li:hover {font-size: 23px;}
+        /* h2:hover {border-style: dashed;} */            
+    </style>
+</head>
+<body>
+    <h2>Press to play</h2>
+    <ul>
+        <li>1000</li>                                                   
+        <li>500</li>            
+        <li>2500</li>
+        <li>500</li>
+        <li>100</li>
+        <li>100</li>                         
+        <li>2600</li>                        
+        <li>1000</li> 
+        <li>1000</li>
+        <li>50</li>
+        <li>50</li>
+        <li>50</li>
+        <li>50</li>
+        <li>500</li>                                      
+    </ul>
+    
+    <script>        
+        // take all <li>
+        let allOfLi = document.querySelectorAll('li');    
+            
+        //new array of all li's milisec
+        let arrayOfSongsLongs = []; 
+
+        //re-change view all li
+        for (let i = 0; i < allOfLi.length; i++) {
+            arrayOfSongsLongs.push(allOfLi[i].innerHTML);  
+            
+            allOfLi[i].innerHTML = '&#9654; play : ' + allOfLi[i].innerHTML;
+            allOfLi[i].style.border = '3px solid #fff'
+        }
+
+        //START main logic==================================================================
+        let intervalOfPlayLoop;
+
+        function PlayloopSonglistFromSomeKey (startSongKey, endKeyOfSongList = 0, querySelectorAllSong) {
+            
+            clearInterval(intervalOfPlayLoop);
+                                
+                ;(function invokePlayLoopPlaylist () {                
+                    //erase all visual songs plaing
+                    for (let i = 0; i < querySelectorAllSong.length; i++) {
+                        querySelectorAllSong[i].style.border = '3px solid #fff';
+                        querySelectorAllSong[i].style.opacity = '.5';
+                        querySelectorAllSong[i].innerHTML = '&#9632; stop : ' + arrayOfSongsLongs[i];
+                    }                    
+                        //set visual song play
+                        querySelectorAllSong[startSongKey].style.border = '3px solid #008000';
+                        querySelectorAllSong[startSongKey].style.opacity = '1';
+                        querySelectorAllSong[startSongKey].innerHTML = '&#9632; stop : ' + arrayOfSongsLongs[startSongKey];
+ 
+
+                                intervalOfPlayLoop = setTimeout(() => {
+                                    
+
+                                    if (startSongKey > querySelectorAllSong.length - 1) {
+                                        startSongKey = endKeyOfSongList;
+                                    }
+                                        
+                                        if (onSwitch) {
+                                            
+                                            invokePlayLoopPlaylist();
+                                            
+                                        }
+                                
+                                }, arrayOfSongsLongs[startSongKey])
+                                                       
+                        startSongKey++;
+                })()
+        
+        }
+
+
+        let onSwitch = false;
+        
+        //on-off switch
+        function onOffToSwitch () {
+            onSwitch ? onSwitch = false : onSwitch = true;            
+        }
+         
+        //put event on each song
+        for (let i = 0; i < allOfLi.length; i++) {
+            
+            allOfLi[i].addEventListener('click', () => {                
+                
+                PlayloopSonglistFromSomeKey(i, 0, allOfLi);
+                 
+                onOffToSwitch();
+                    
+                    if (!onSwitch) {
+                            for (let i = 0; i < allOfLi.length; i++) {
+                                allOfLi[i].innerHTML = '&#9654; play &#9654; : ' + arrayOfSongsLongs[i];                                
+                            }
+                    }
+                                
+            })            
+        }
+
+
+    </script>
+</body>
+</html>
