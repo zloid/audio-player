@@ -1,0 +1,22 @@
+body {
+    font-size: 20px;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-color: #f4ecd2;
+}
+
+li {
+    display: block;
+    margin: 10px; 
+    background-color: #faca62;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 40px;
+    width: 80%;
+    padding: 10px;
+}
+
+li:hover {
+    font-size: 23px;
+}
+
+/* h2:hover {border-style: dashed;} */ 
