@@ -4,7 +4,7 @@ body {
     background-color: #f4ecd2;
 }
 
-li {
+.classOfNewSongLiElement {
     display: block;
     margin: 10px; 
     background-color: #faca62;
@@ -15,7 +15,7 @@ li {
     padding: 10px;
 }
 
-li:hover {
+.classOfNewSongLiElement:hover {
     font-size: 23px;
 }
 
