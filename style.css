@@ -4,7 +4,7 @@ body {
     background-color: #f4ecd2;
 }
 
-.classOfNewSongLiElement {
+.classOfNewSongLiElement, #pause {
     display: block;
     margin: 10px; 
     background-color: #faca62;
@@ -16,7 +16,7 @@ body {
 }
 
 .classOfNewSongLiElement:hover {
-    font-size: 23px;
+    font-size: 21px;
 }
 
 /* h2:hover {border-style: dashed;} */ 

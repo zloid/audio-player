@@ -64,12 +64,13 @@ class AudioPlayer {
 
             setTimeout(() => {
 
-            // let qqq = document.querySelectorAll('.classOfNewSongLiElement');
+                //dell this
+            let qqq = document.querySelectorAll('.classOfNewSongLiElement');
 
-            // for (let i = 0; i < qqq.length; i++) {
-            //     qqq[i].style.color = 'red';    
 
-            // }
+            for (let i = 0; i < qqq.length; i++) {
+                // qqq[i].style.color = '#aaa';    
+            }
 
 
 
@@ -77,7 +78,11 @@ class AudioPlayer {
 
  // take all <li>
  let allOfLi = document.querySelectorAll('.classOfNewSongLiElement');    
-            
+ 
+ let allHTML5Audio = document.querySelectorAll('audio');    
+
+
+
  //new array of all li's milisec
  let arrayOfSongsLongs = []; 
 
@@ -88,34 +93,73 @@ class AudioPlayer {
      for (let i = 0; i < this.allAudioElement.length; i++) {
          arrayOfSongsLongs.push(this.allAudioElement[i].duration * 1000);  
          
-         allOfLi[i].innerHTML = '&#9654; play : ' + allOfLi[i].innerHTML;
+         allOfLi[i].innerHTML = '&#9654; play : ' + allOfLi[i].innerHTML + '( ' + (this.allAudioElement[i].duration/60).toFixed(1) + ' min.)';
          allOfLi[i].style.border = '3px solid #fff'
+        
+        //  console.log('this.allAudioElement[i]:', this.allAudioElement[i].duration);
      }
 
      
     
-        // console.log('this.allAudioElement[0]:', this.allAudioElement[0].duration)
          
      }, 100)
 
  //START main logic==================================================================
  let intervalOfPlayLoop;
 
+//  console.log('this.allAudioElement[1]:', this.allAudioElement[1])
+
+
+
+
+
  function PlayloopSonglistFromSomeKey (startSongKey, endKeyOfSongList = 0, querySelectorAllSong) {
+
      
      clearInterval(intervalOfPlayLoop);
                          
-         ;(function invokePlayLoopPlaylist () {                
-             //erase all visual songs plaing
+         ;(function invokePlayLoopPlaylist () {     
+             
+            
+            
+
+
+             //stop all songs plaing
              for (let i = 0; i < querySelectorAllSong.length; i++) {
                  querySelectorAllSong[i].style.border = '3px solid #fff';
                  querySelectorAllSong[i].style.opacity = '.5';
-                 querySelectorAllSong[i].innerHTML = '&#9632; stop : ' + arrayOfSongsLongs[i];
+
+
+                     //take song name from song's src
+                        let pathToAudio = allHTML5Audio[i].currentSrc;                    
+                        let songName = pathToAudio.match(/[%-\.\w]*$/ig).join('').replace(/mp3|ogg|[^a-z]+/ig, ' ');
+
+
+                 querySelectorAllSong[i].innerHTML = '&#9632; stop: ' + songName + ' = ' +  (arrayOfSongsLongs[i]/60000).toFixed(1);
+
+                //  allHTML5Audio[i].pause();
+                 allHTML5Audio[i].load();
+
+                //   console.log('allHTML5Audio[i]:', allHTML5Audio[0].duration);
+
+                 //stop all song
+                 //this.allAudioElement[startSongKey].stop;
+
+
+
              }                    
-                 //set visual song play
+                 //play the song
                  querySelectorAllSong[startSongKey].style.border = '3px solid #008000';
                  querySelectorAllSong[startSongKey].style.opacity = '1';
-                 querySelectorAllSong[startSongKey].innerHTML = '&#9632; stop : ' + arrayOfSongsLongs[startSongKey];
+
+
+                //take song name from song's src
+                let pathToAudio = allHTML5Audio[startSongKey].currentSrc;                    
+                let songName = pathToAudio.match(/[%-\.\w]*$/ig).join('').replace(/mp3|ogg|[^a-z]+/ig, ' ');
+
+                 querySelectorAllSong[startSongKey].innerHTML = '&#9632; stop : ' + songName + ' = ' + (arrayOfSongsLongs[startSongKey]/60000).toFixed(1);
+
+                 allHTML5Audio[startSongKey].play();
 
 
                          intervalOfPlayLoop = setTimeout(() => {
@@ -125,11 +169,11 @@ class AudioPlayer {
                                  startSongKey = endKeyOfSongList;
                              }
                                  
-                                 if (onSwitch) {
+                                if (onSwitch) {
                                      
-                                     invokePlayLoopPlaylist();
+                                    invokePlayLoopPlaylist();
                                      
-                                 }
+                                }
                          
                          }, arrayOfSongsLongs[startSongKey])
                                                 
@@ -141,11 +185,23 @@ class AudioPlayer {
 
  let onSwitch = false;
  
- //on-off switch
+ //on-off switch (now not need)
  function onOffToSwitch () {
-     onSwitch ? onSwitch = false : onSwitch = true;            
+    //  onSwitch ? onSwitch = false : onSwitch = true;            
+     onSwitch ? onSwitch = true : onSwitch = true;            
  }
-  
+
+  //part 2
+
+// let getPause = document.querySelector('pause');
+
+// getPause.addEventListener('event', ev => {
+//     console.log('hey!!!')
+// })
+
+
+ 
+
  //put event on each song
  for (let i = 0; i < allOfLi.length; i++) {
      
@@ -157,7 +213,14 @@ class AudioPlayer {
              
              if (!onSwitch) {
                      for (let i = 0; i < allOfLi.length; i++) {
-                         allOfLi[i].innerHTML = '&#9654; play &#9654; : ' + arrayOfSongsLongs[i];                                
+
+                        
+                        //take song name from song's src
+                        let pathToAudio = allHTML5Audio[i].currentSrc;                    
+                        let songName = pathToAudio.match(/[%-\.\w]*$/ig).join('').replace(/mp3|ogg|[^a-z]+/ig, ' ');
+
+
+                         allOfLi[i].innerHTML = '&#9654; play &#9654; : ' + songName + ' == ' + (arrayOfSongsLongs[i]/60000).toFixed(1);                                
                      }
              }
                          
@@ -182,15 +245,12 @@ let somePlayer = new AudioPlayer();
 
 
 // console.log('somePlayer:', somePlayer)
+
 somePlayer.hideAllHTMLAudioElement(false);
 somePlayer.createNewUIForSongs('hr');
 
 somePlayer.mainLogic();
-
-setTimeout(() => {
-    
-    console.log('somePlayer.allAudioElement[0]:', somePlayer.allAudioElement[0].duration)
-}, 1000)
+ 
 
     
 
@@ -206,90 +266,3 @@ setTimeout(() => {
 // (c) Sergey Voytehovich
 
  
- 
- 
- 
- /*
-    old logic
-
- // take all <li>
- let allOfLi = document.querySelectorAll('li');    
-            
- //new array of all li's milisec
- let arrayOfSongsLongs = []; 
-
- //re-change view all li
- for (let i = 0; i < allOfLi.length; i++) {
-     arrayOfSongsLongs.push(allOfLi[i].innerHTML);  
-     
-     allOfLi[i].innerHTML = '&#9654; play : ' + allOfLi[i].innerHTML;
-     allOfLi[i].style.border = '3px solid #fff'
- }
-
- //START main logic==================================================================
- let intervalOfPlayLoop;
-
- function PlayloopSonglistFromSomeKey (startSongKey, endKeyOfSongList = 0, querySelectorAllSong) {
-     
-     clearInterval(intervalOfPlayLoop);
-                         
-         ;(function invokePlayLoopPlaylist () {                
-             //erase all visual songs plaing
-             for (let i = 0; i < querySelectorAllSong.length; i++) {
-                 querySelectorAllSong[i].style.border = '3px solid #fff';
-                 querySelectorAllSong[i].style.opacity = '.5';
-                 querySelectorAllSong[i].innerHTML = '&#9632; stop : ' + arrayOfSongsLongs[i];
-             }                    
-                 //set visual song play
-                 querySelectorAllSong[startSongKey].style.border = '3px solid #008000';
-                 querySelectorAllSong[startSongKey].style.opacity = '1';
-                 querySelectorAllSong[startSongKey].innerHTML = '&#9632; stop : ' + arrayOfSongsLongs[startSongKey];
-
-
-                         intervalOfPlayLoop = setTimeout(() => {
-                             
-
-                             if (startSongKey > querySelectorAllSong.length - 1) {
-                                 startSongKey = endKeyOfSongList;
-                             }
-                                 
-                                 if (onSwitch) {
-                                     
-                                     invokePlayLoopPlaylist();
-                                     
-                                 }
-                         
-                         }, arrayOfSongsLongs[startSongKey])
-                                                
-                 startSongKey++;
-         })()
- 
- }
-
-
- let onSwitch = false;
- 
- //on-off switch
- function onOffToSwitch () {
-     onSwitch ? onSwitch = false : onSwitch = true;            
- }
-  
- //put event on each song
- for (let i = 0; i < allOfLi.length; i++) {
-     
-     allOfLi[i].addEventListener('click', () => {                
-         
-         PlayloopSonglistFromSomeKey(i, 0, allOfLi);
-          
-         onOffToSwitch();
-             
-             if (!onSwitch) {
-                     for (let i = 0; i < allOfLi.length; i++) {
-                         allOfLi[i].innerHTML = '&#9654; play &#9654; : ' + arrayOfSongsLongs[i];                                
-                     }
-             }
-                         
-     })            
- }
-
-*/
