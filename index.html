@@ -8,43 +8,72 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h2 class="h2">Press to play</h2>
-
-    <!-- <button id="pause">PAUSE</button> -->
+         
+    <audio controls>            
+            <source src="sounds/chant.mp3" type="audio/mpeg">
+    </audio>
     
     <audio controls>            
-            <source src="sounds/breathy A.mp3" type="audio/mpeg">
-    </audio>
+            <source src="sounds/TROT.mp3" type="audio/mpeg">
+    </audio>  
+
+
+<audio controls>            
+        <source src="sounds/beeph.mp3" type="audio/mpeg">
+</audio>
 
     <audio controls>            
             <source src="sounds/MAGIC.mp3" type="audio/mpeg">
     </audio>
+ 
+    
+     <!-- <audio controls>            
+             <source src="http://zoo10.zloid.ru/media/kusochek-s-dermom-zoo10-album/25 - 60HYC.mp3" type="audio/mpeg">
+     </audio>     -->
 
+     <audio controls>            
+                <source src="http://zoo10.zloid.ru/media/pesni-pro-dermo-lyubov-zoo10-album/28---utrennyaya-dedushka.mp3" type="audio/mpeg">
+     </audio>  
+     <audio controls>            
+                <source src="http://zoo10.zloid.ru/media/kusochek-s-dermom-zoo10-album/06_-_Boginya_Lyubvi_i_Seksa.mp3" type="audio/mpeg">
+     </audio>  
+    
     <audio controls>            
         <source src="https://freesound.org/data/previews/425/425556_4929134-lq.mp3" type="audio/mpeg">
-    </audio>
+    </audio>   
 
-    <audio controls>            
+      <audio controls>            
             <source src="sounds/short servo burst.mp3" type="audio/mpeg">
-    </audio>
+    </audio>  
 
-    <!-- <audio controls>            
-            <source src="sounds/chant.mp3" type="audio/mpeg">
-    </audio> -->
+      <audio controls>            
+            <source src="sounds/game WiN.mp3" type="audio/mpeg">
+    </audio>   
 
-    <audio controls>            
-            <source src="sounds/beeph.mp3" type="audio/mpeg">
-    </audio>
     
+
+        <button id="stop">STOP</button>
     
-<!-- 
-    <audio controls>            
-            <source src="http://zoo10.zloid.ru/media/kusochek-s-dermom-zoo10-album/25 - 60HYC.mp3" type="audio/mpeg">
-    </audio> -->
+        <button id="back">BACK</button>
+        <button id="play">PLAY</button>
+        <button id="next">NEXT</button>
+
+
+    <!-- <ul id="someUl"></ul> -->
+    <hr>
+        <div id="timer">0:00 &#128337; 0:00</div> 
+        
+
+        <div id="songSlider" onclick="setSongPosition(this, event, arrayAllOldAudioElement, audioNowPlaying)">
+        <!-- <div id="songSlider"> -->
+                <div id="trackProgress">
+                        <span id="trackNameContainer"></span>
+                </div>                        
+        </div>
 
     <hr>
 
-
+    <div id="AudioPlayerByZloid"></div>
 
     <script src='player.js'></script>
 

@@ -1,268 +1,206 @@
-//[+] take all audio elements in 1 selector
-//[+] hide all audio elements
-//[+] create new ul>li equal all audio elements
-//[+] take all song name from currentSrc of song
-//[+] RegExp for cut name song
-//[-] create new array with milisec all audio (equal audio elements key)
-//[-] play() button
-//[-] stop() button
-//[-] pause() button
-//[-] 
+// TASKS:
+// [+] take all audio in []
+// [+] stop all ()
+// [+] play 1 ()
+// [+] play audio loop, from next song ()
+// [+] play next ()
+// [+] play before ()
+// [+] create new UI-Li = all audio elem
+// [+] RegExp name for all songs from SRC audio elements
+// [+] clickable visual play of each audio element
+// [+] progress bar()
+// [+] visual time progress () like - 01:45 (Song Meter and Time Tracker)
+// [-] Volume Meter
+// [-] Volume Up, Down
+// [-] random() btn
+// [-] cicle() btn
+// [-] visual play/pause () on 1 btn
+// [-] 
+// [-] 
+// [-] abort text select
+// [-] sharing() ?
+// [-] download() ... feature ?
+// [-] pause() btn ???
 
 
-class AudioPlayer {
+//todo
+console.time('runTimeAllScript');
 
-    constructor () {
-        
-        this.allAudioElement = document.querySelectorAll('audio'); 
-
-        //we need hide all HTML5 audio tag
-        this.hideAllHTMLAudioElement = function (condition) {
-            for (let i = 0; i < this.allAudioElement.length; i++) {
-                this.allAudioElement[i].controls = condition;
-            }
-        }
-       
-        //...and create new UI for each audio later
-        this.createNewUIForSongs = function (appendUITo) {
-            
-            let newUl = document.createElement('ul');
-            let newLi,
-            pathToAudio;
-                        
-            //SRC doesn't work without this 'window.onload'
-            // window.onload = () => {
-
-                setTimeout(() => {
-                    
-                
-                                    
-                for (let i = 0; i < this.allAudioElement.length; i++) {
-                    
-                    newLi = document.createElement('li');   
-                    
-                    newLi.className = 'classOfNewSongLiElement'
-
-                    pathToAudio = this.allAudioElement[i].currentSrc;
-                    
-                    //take song name from song's src
-                    newLi.innerHTML = pathToAudio.match(/[%-\.\w]*$/ig).join('').replace(/mp3|ogg|[^a-z]+/ig,     ' ');
-
-                    newUl.appendChild(newLi);
-                }
-            // }
-        }, 1)
-
-            document.querySelector(appendUITo).appendChild(newUl);
-
-           
-
-            
-        }    
-        
-        this.mainLogic = function () {
-
-            setTimeout(() => {
-
-                //dell this
-            let qqq = document.querySelectorAll('.classOfNewSongLiElement');
+//all variables
+let audioNowPlaying = 0,
+isFirstPlay = true,
+arrayAllOldAudioElement = document.querySelectorAll('audio'),
+stopButton = document.querySelector('#stop'),
+playButton = document.querySelector('#play'),
+nextButton = document.querySelector('#next'),
+backButton = document.querySelector('#back'),
+arrayOfNewUIAudioInterface;
 
 
-            for (let i = 0; i < qqq.length; i++) {
-                // qqq[i].style.color = '#aaa';    
-            }
+//all functions
+function stopAllAudio () {
+    for (let i = 0; i < arrayAllOldAudioElement.length; i++) {                
+        arrayAllOldAudioElement[i].pause();
+        arrayAllOldAudioElement[i].currentTime = 0;
+        arrayOfNewUIAudioInterface[i].className = 'newLiClass';
+        arrayOfNewUIAudioInterface[i].innerHTML = arrayOfNewUIAudioInterface[i].innerHTML.replace(/■ /, '▶ ');        
+    }
+}
 
+function playOneAudio (indexOfAudio) {
+    isFirstPlay = false;
+    stopAllAudio();
+    namingProgressBarEqualCurrentAudioSrc('#trackNameContainer', arrayAllOldAudioElement, indexOfAudio);
+    updaitingTimeOfAudio(arrayAllOldAudioElement, indexOfAudio, '#timer');
+    arrayAllOldAudioElement[indexOfAudio].play();    
+    updaitingProgressBarOfAudio(arrayAllOldAudioElement, indexOfAudio, '#songSlider', '#trackProgress');
+    arrayOfNewUIAudioInterface[indexOfAudio].className = 'newLiClassPlaying';
+    arrayOfNewUIAudioInterface[indexOfAudio].innerHTML = arrayOfNewUIAudioInterface[indexOfAudio].innerHTML.replace(/▶ /, '■ ');
+} 
 
-
-
-
- // take all <li>
- let allOfLi = document.querySelectorAll('.classOfNewSongLiElement');    
- 
- let allHTML5Audio = document.querySelectorAll('audio');    
-
-
-
- //new array of all li's milisec
- let arrayOfSongsLongs = []; 
-
-
-  
- setTimeout(() => {
-     //re-change view all li
-     for (let i = 0; i < this.allAudioElement.length; i++) {
-         arrayOfSongsLongs.push(this.allAudioElement[i].duration * 1000);  
+function updaitingTimeOfAudio (arrayAllOldAudioElement, indexOfAudio, putTimerHere) {    
+    let timerUpdate = document.querySelector(putTimerHere);
+    arrayAllOldAudioElement[indexOfAudio].addEventListener('timeupdate', () => { 
+        let currentSec = (Math.floor(arrayAllOldAudioElement[indexOfAudio].currentTime % 60) < 10 ? '0' : '') + Math.floor(arrayAllOldAudioElement[indexOfAudio].currentTime % 60);
+        let currentMinutes = Math.floor(arrayAllOldAudioElement[indexOfAudio].currentTime / 60);
          
-         allOfLi[i].innerHTML = '&#9654; play : ' + allOfLi[i].innerHTML + '( ' + (this.allAudioElement[i].duration/60).toFixed(1) + ' min.)';
-         allOfLi[i].style.border = '3px solid #fff'
-        
-        //  console.log('this.allAudioElement[i]:', this.allAudioElement[i].duration);
-     }
+        timerUpdate.innerHTML = currentMinutes + ":" + currentSec + ' &#128337; ' + Math.floor(arrayAllOldAudioElement[indexOfAudio].duration / 60) + ":" + (Math.floor(arrayAllOldAudioElement[indexOfAudio].duration % 60) < 10 ? '0' : '') + Math.floor(arrayAllOldAudioElement[indexOfAudio].duration % 60);            
+    })
+}
 
-     
+//todo
+function updaitingProgressBarOfAudio (arrayAllOldAudioElement, indexOfAudio, idSongSlider, idTrackProgress) {
+    arrayAllOldAudioElement[indexOfAudio].addEventListener('timeupdate', () => {
+        let percentageOfSong = (arrayAllOldAudioElement[indexOfAudio].currentTime/arrayAllOldAudioElement[indexOfAudio].duration);
+        let getSongSlider = document.querySelector(idSongSlider);
+        let percentageOfSlider = getSongSlider.offsetWidth * percentageOfSong;
+        document.querySelector(idTrackProgress).style.width = Math.round(percentageOfSlider) + "px";
+    })
+}
+
+function namingProgressBarEqualCurrentAudioSrc (placeForAudioMiniName, arrayAllOldAudioElement, indexOfAudio) {
+    setTimeout(() => {
+        let getPlaceForAudioMiniName = document.querySelector(placeForAudioMiniName);
+        let  pathToAudio = arrayAllOldAudioElement[indexOfAudio].currentSrc;
+        getPlaceForAudioMiniName.innerHTML = pathToAudio.match(/[%-\.\w]*$/ig).join('').replace(/mp3|ogg|[^a-z]+/ig, ' ').toLowerCase();
+    }, 1)
+}
+
+ 
+function setSongPosition(obj,e, arrayAllOldAudioElement, indexOfAudio){
     
-         
-     }, 100)
+    let songSliderWidth = obj.offsetWidth;
 
- //START main logic==================================================================
- let intervalOfPlayLoop;
+    let evtobj = window.event ? event : e;
 
-//  console.log('this.allAudioElement[1]:', this.allAudioElement[1])
-
-
-
-
-
- function PlayloopSonglistFromSomeKey (startSongKey, endKeyOfSongList = 0, querySelectorAllSong) {
-
-     
-     clearInterval(intervalOfPlayLoop);
-                         
-         ;(function invokePlayLoopPlaylist () {     
-             
-            
-            
-
-
-             //stop all songs plaing
-             for (let i = 0; i < querySelectorAllSong.length; i++) {
-                 querySelectorAllSong[i].style.border = '3px solid #fff';
-                 querySelectorAllSong[i].style.opacity = '.5';
-
-
-                     //take song name from song's src
-                        let pathToAudio = allHTML5Audio[i].currentSrc;                    
-                        let songName = pathToAudio.match(/[%-\.\w]*$/ig).join('').replace(/mp3|ogg|[^a-z]+/ig, ' ');
-
-
-                 querySelectorAllSong[i].innerHTML = '&#9632; stop: ' + songName + ' = ' +  (arrayOfSongsLongs[i]/60000).toFixed(1);
-
-                //  allHTML5Audio[i].pause();
-                 allHTML5Audio[i].load();
-
-                //   console.log('allHTML5Audio[i]:', allHTML5Audio[0].duration);
-
-                 //stop all song
-                 //this.allAudioElement[startSongKey].stop;
-
-
-
-             }                    
-                 //play the song
-                 querySelectorAllSong[startSongKey].style.border = '3px solid #008000';
-                 querySelectorAllSong[startSongKey].style.opacity = '1';
-
-
-                //take song name from song's src
-                let pathToAudio = allHTML5Audio[startSongKey].currentSrc;                    
-                let songName = pathToAudio.match(/[%-\.\w]*$/ig).join('').replace(/mp3|ogg|[^a-z]+/ig, ' ');
-
-                 querySelectorAllSong[startSongKey].innerHTML = '&#9632; stop : ' + songName + ' = ' + (arrayOfSongsLongs[startSongKey]/60000).toFixed(1);
-
-                 allHTML5Audio[startSongKey].play();
-
-
-                         intervalOfPlayLoop = setTimeout(() => {
-                             
-
-                             if (startSongKey > querySelectorAllSong.length - 1) {
-                                 startSongKey = endKeyOfSongList;
-                             }
-                                 
-                                if (onSwitch) {
-                                     
-                                    invokePlayLoopPlaylist();
-                                     
-                                }
-                         
-                         }, arrayOfSongsLongs[startSongKey])
-                                                
-                 startSongKey++;
-         })()
- 
- }
-
-
- let onSwitch = false;
- 
- //on-off switch (now not need)
- function onOffToSwitch () {
-    //  onSwitch ? onSwitch = false : onSwitch = true;            
-     onSwitch ? onSwitch = true : onSwitch = true;            
- }
-
-  //part 2
-
-// let getPause = document.querySelector('pause');
-
-// getPause.addEventListener('event', ev => {
-//     console.log('hey!!!')
-// })
-
-
- 
-
- //put event on each song
- for (let i = 0; i < allOfLi.length; i++) {
-     
-     allOfLi[i].addEventListener('click', () => {                
-         
-         PlayloopSonglistFromSomeKey(i, 0, allOfLi);
-          
-         onOffToSwitch();
-             
-             if (!onSwitch) {
-                     for (let i = 0; i < allOfLi.length; i++) {
-
-                        
-                        //take song name from song's src
-                        let pathToAudio = allHTML5Audio[i].currentSrc;                    
-                        let songName = pathToAudio.match(/[%-\.\w]*$/ig).join('').replace(/mp3|ogg|[^a-z]+/ig, ' ');
-
-
-                         allOfLi[i].innerHTML = '&#9654; play &#9654; : ' + songName + ' == ' + (arrayOfSongsLongs[i]/60000).toFixed(1);                                
-                     }
-             }
-                         
-     })            
- }
-
-
-
-
-
-
-
-            }, 1) // end of setTimeout 
-        }
-       
-        
-    }       
-}  
-
-
-let somePlayer = new AudioPlayer();
-
-
-// console.log('somePlayer:', somePlayer)
-
-somePlayer.hideAllHTMLAudioElement(false);
-somePlayer.createNewUIForSongs('hr');
-
-somePlayer.mainLogic();
- 
-
+    clickLocation =  evtobj.layerX - obj.offsetLeft;
     
+    let percentage = (clickLocation/songSliderWidth);
 
- 
- 
+    arrayAllOldAudioElement[indexOfAudio].currentTime = arrayAllOldAudioElement[indexOfAudio].duration * percentage;
+}
 
- 
+//=================================
+function playNextAudio (indexAudioNowPlaying, arrayAllAudio) {
+    if (isFirstPlay) {
+        return
+    }    
+    stopAllAudio();
+    audioNowPlaying = indexAudioNowPlaying + 1;
+    //last audio's detector
+    if (indexAudioNowPlaying == arrayAllAudio.length - 1) {             
+        audioNowPlaying = 0;
+        playOneAudio(audioNowPlaying);   
+    } else {
+        playOneAudio(audioNowPlaying);    
+    }
+}
+
+
+function playBackAudio (arrayAllAudio) {  
+    if (isFirstPlay) {
+        return
+    }
+    stopAllAudio();
+    audioNowPlaying--;
+    if (audioNowPlaying < 0) {
+        audioNowPlaying = arrayAllAudio.length - 1;
+    }
+    playOneAudio(audioNowPlaying);
+}      
+
+function drawNewUi (arrayAllAudio, setNewClassForNewUIAudio, putNewUIThere, displayOldUIAudio, oldUIAudioControlsBool) {
+    let containerForNewUIAudioElement = document.querySelector(putNewUIThere);
+    let newUl = document.createElement('ul');        
+    for (let i = 0; i < arrayAllAudio.length; i++) {                 
+        arrayAllAudio[i].style.display = displayOldUIAudio;        
+        arrayAllAudio[i].controls = oldUIAudioControlsBool;        
+        let newLi = document.createElement('li');        
+        newLi.className = setNewClassForNewUIAudio;
+        
+        let k = i + 1; 
+        setTimeout(() => {
+            let  pathToAudio = arrayAllAudio[i].currentSrc;
+            newLi.innerHTML = '▶ ' + k + ') ' + pathToAudio.match(/[%-\.\w]*$/ig).join('').replace(/mp3|ogg|[^a-z]+/ig, ' ');
+            
+            let upperFirstLetter  = newLi.innerHTML.match(/[a-z]/i).join('').toUpperCase();
+            newLi.innerHTML = newLi.innerHTML.replace(/[a-z]/i, upperFirstLetter)
+            
+        }, 200)        
+        newUl.appendChild(newLi);        
+    }    
+    containerForNewUIAudioElement.appendChild(newUl);
+}
+
+function playingNewUIAudioElements (takeNewClassFromNewUIAudio, arrayAllAudio) {  
+    arrayOfNewUIAudioInterface = document.querySelectorAll(takeNewClassFromNewUIAudio);    
+    for (let i = 0; i < arrayOfNewUIAudioInterface.length; i++) {                   
+        arrayOfNewUIAudioInterface[i].addEventListener('click', () => {                    
+            if (arrayAllAudio[i].currentTime == 0){
+                playOneAudio(i);
+            } else {                
+                stopAllAudio();                
+            }            
+            audioNowPlaying = i;                              
+        })
+    }    
+}
+
+//==============================
 
 
 
+// todo
+
+//DRAW NEW UI
+drawNewUi(arrayAllOldAudioElement, 'newLiClass', '#AudioPlayerByZloid', 'none', false);
+playingNewUIAudioElements('.newLiClass', arrayAllOldAudioElement);
+//EVENTS  
+//play next song when prev. ended
+for (let i = 0; i < arrayAllOldAudioElement.length; i++) { 
+    arrayAllOldAudioElement[i].addEventListener('ended', () => {
+        playNextAudio(i, arrayAllOldAudioElement);
+    })
+}    
+
+//event button-play
+playButton.addEventListener('click', () => {
+    playOneAudio(audioNowPlaying);
+})
+
+//event stop-button 
+stopButton.onclick = stopAllAudio;
+
+//event nextButton
+nextButton.addEventListener('click',() => {
+    playNextAudio(audioNowPlaying, arrayAllOldAudioElement);
+})
 
 
-// (c) Sergey Voytehovich
+//event button-back
+backButton.addEventListener('click', () => {
+    playBackAudio(arrayAllOldAudioElement);
+})
 
- 
+
+console.timeEnd('runTimeAllScript');

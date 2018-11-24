@@ -1,10 +1,67 @@
+.newLiClassPlaying {
+    display: block;
+    /* float: left; */
+    margin: 0 0 20px -30px;
+    padding: 5px;
+    font-size: 22px;
+    text-align: center;
+    cursor: pointer;
+    color: #000;
+    /* background-color: #4CAF50; */
+    background-color: #eee;
+    border: 1px solid #999;
+    border-radius: 10px;
+    box-shadow: 0px 5px #999;
+
+    background-color: #78c55a;
+    box-shadow: 0 0px #666;
+    transform: translateY(7px);
+
+    max-width: 80%;
+    width: 400px;
+}
+
+.newLiClass {
+    /* display: block; */
+    display: block;
+    /* float: left; */
+    margin: 0 0 20px -30px;
+    padding: 5px;
+    font-size: 22px;
+    text-align: center;
+    cursor: pointer;
+    color: #000;
+    /* background-color: #4CAF50; */
+    background-color: #eee;
+    border: 1px solid #999;
+    border-radius: 10px;
+    box-shadow: 0px 5px #999;
+
+    max-width: 80%;
+    width: 400px;
+
+    overflow: hidden;
+  }
+  
+  .newLiClass:hover {
+      background-color: #3e8e41;
+      background-color: rgb(221, 221, 221);
+    }
+  
+  .newLiClass:active {
+    background-color: #78c55a;
+    box-shadow: 0 0px #666;
+    transform: translateY(2px);
+  }
+
 body {
     font-size: 20px;
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     background-color: #f4ecd2;
+    /* background-color: #dcd2f4; */
 }
 
-.classOfNewSongLiElement, #pause {
+.classOfNewSongLiElement {
     display: block;
     margin: 10px; 
     background-color: #faca62;
@@ -19,4 +76,42 @@ body {
     font-size: 21px;
 }
 
-/* h2:hover {border-style: dashed;} */ 
+#stop, #next, #play, #back {    
+    padding: 20px;    
+    outline: none;
+    background-color: rgb(213, 228, 83);
+    border-radius: 5px;
+    margin: 10px;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+#stop {
+    background-color: rgb(170, 48, 18);
+}
+
+#play {
+    background-color: rgb(28, 117, 32);
+}
+
+#songSlider{
+    width: 70%;
+    height: 22px;
+    background-color: #ccc;
+    border-radius: 3px;
+}
+
+#trackProgress{
+    width: 0px;
+    height: 22px;
+    background-color: #78c55a;
+    border-radius: 3px;
+}
+
+#trackNameContainer {
+    position: absolute;
+    font-size: 20px;
+    margin-left: 5px;
+    height: 15px;
+    line-height: 20px;
+}
