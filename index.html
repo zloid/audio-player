@@ -48,34 +48,33 @@
 
       <audio controls>            
             <source src="sounds/game WiN.mp3" type="audio/mpeg">
-    </audio>   
+        </audio>   
 
-    
 
-        <button id="stop">STOP</button>
-    
+        <button id="stop">STOP</button>    
         <button id="back">BACK</button>
         <button id="play">PLAY</button>
         <button id="next">NEXT</button>
 
 
-    <!-- <ul id="someUl"></ul> -->
-    <hr>
-        <div id="timer">0:00 &#128337; 0:00</div> 
+        <hr>
         
-
-        <div id="songSlider" onclick="setSongPosition(this, event, arrayAllOldAudioElement, audioNowPlaying)">
-        <!-- <div id="songSlider"> -->
-                <div id="trackProgress">
-                        <span id="trackNameContainer"></span>
-                </div>                        
-        </div>
-
+        
+        <!-- Container for song progress slider  -->
+        <!-- <div id="songSlider" onclick="setSongPosition(this, event, arrayAllHTMLAudioElement, audioNowPlaying)"> -->
+                <div id="songSlider">
+                        <!-- <div id="songSlider"> -->
+                                <div id="trackProgress">
+                                                <div id="trackNameContainer"></div>
+                        </div>                        
+                </div>
+                
+  <div id="timer">0:00 &#128337; 0:00</div> 
     <hr>
 
     <div id="AudioPlayerByZloid"></div>
 
-    <script src='player.js'></script>
+        <script src='player.js'></script>
 
 </body>
 </html>
