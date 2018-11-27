@@ -10,17 +10,17 @@
 // [+] clickable visual play of each audio element
 // [+] progress bar()
 // [+] visual time progress () like - 01:45 (Song Meter and Time Tracker)
+// [+] pause() btn //integrate in play() btn + added playPause on each new UI element
+// [+] visual play/pause () on 1 btn
 // [-] Volume Meter
 // [-] Volume Up, Down
 // [-] random() btn
 // [-] cicle() btn
-// [-] visual play/pause () on 1 btn
 // [-] 
 // [-] 
 // [-] abort text select
 // [-] sharing() ?
 // [-] download() ... feature ?
-// [-] pause() btn ???
 
 
 //todo
@@ -44,19 +44,49 @@ function stopAllAudio () {
         arrayAllHTMLAudioElement[i].pause();
         arrayAllHTMLAudioElement[i].currentTime = 0;
         arrayOfNewUIAudioInterface[i].className = 'newLiClass';
-        arrayOfNewUIAudioInterface[i].innerHTML = arrayOfNewUIAudioInterface[i].innerHTML.replace(/■ /, '▶ ');        
+        arrayOfNewUIAudioInterface[i].innerHTML = arrayOfNewUIAudioInterface[i].innerHTML.replace(/■ |[|][|]/, '▶ ');        
     }
+    playButton.innerHTML = 'PLAY';
 }
 
+//todo
+function pauseActualAudio () {
+    // let audioNowPlaying = 0
+    arrayAllHTMLAudioElement[audioNowPlaying].pause();
+    arrayOfNewUIAudioInterface[audioNowPlaying].className = 'newLiClass';
+    arrayOfNewUIAudioInterface[audioNowPlaying].innerHTML = arrayOfNewUIAudioInterface[audioNowPlaying].innerHTML.replace(/[|][|]/, '▶'); 
+    // playButton.innerHTML = 'PLAY';
+    
+    for (let i = 0; i < arrayAllHTMLAudioElement.length; i++) {                
+        
+        // arrayAllHTMLAudioElement[i].pause();
+            
+            // arrayOfNewUIAudioInterface[i].innerHTML = arrayOfNewUIAudioInterface[i].innerHTML.replace(/[|][|]/, '▶ ');        
+        }
+   /*
+    for (let i = 0; i < arrayAllHTMLAudioElement.length; i++) {                
+        arrayAllHTMLAudioElement[i].pause();
+        arrayAllHTMLAudioElement[i].currentTime = 0;
+        arrayOfNewUIAudioInterface[i].className = 'newLiClass';
+        arrayOfNewUIAudioInterface[i].innerHTML = arrayOfNewUIAudioInterface[i].innerHTML.replace(/■ /, '▶ ');        
+    }
+    */
+}
+
+//todo
 function playOneAudioPlus (indexOfAudio) {
     isFirstPlay = false;
-    stopAllAudio();
+    // stopAllAudio();
+    pauseActualAudio();
     namingProgressBarEqualCurrentAudioSrc('#trackNameContainer', arrayAllHTMLAudioElement, indexOfAudio);
-    updaitingTimeOfAudio(arrayAllHTMLAudioElement, indexOfAudio, '#timer');
-    arrayAllHTMLAudioElement[indexOfAudio].play();    
+    updaitingTimeOfAudio(arrayAllHTMLAudioElement, indexOfAudio, '#timer');            
+    arrayAllHTMLAudioElement[indexOfAudio].play();        
     updaitingProgressBarOfAudio(arrayAllHTMLAudioElement, indexOfAudio, '#songSlider', '#trackProgress');
     arrayOfNewUIAudioInterface[indexOfAudio].className = 'newLiClassPlaying';
-    arrayOfNewUIAudioInterface[indexOfAudio].innerHTML = arrayOfNewUIAudioInterface[indexOfAudio].innerHTML.replace(/▶ /, '■ ');
+    arrayOfNewUIAudioInterface[indexOfAudio].innerHTML = arrayOfNewUIAudioInterface[indexOfAudio].innerHTML.replace(/▶/, '||');
+
+    playButton.innerHTML = 'PAUSE';
+    // playButton.innerHTML = '99999999999999999';
 } 
 
 function updaitingTimeOfAudio (arrayAllHTMLAudioElement, indexOfAudio, putTimerTo) {    
@@ -108,13 +138,21 @@ function playNextAudio (indexAudioNowPlaying, arrayAllAudio) {
     }    
     stopAllAudio();
     audioNowPlaying = indexAudioNowPlaying + 1;
-    //last audio's detector
-    if (indexAudioNowPlaying == arrayAllAudio.length - 1) {             
-        audioNowPlaying = 0;
-        playOneAudioPlus(audioNowPlaying);   
-    } else {
-        playOneAudioPlus(audioNowPlaying);    
-    }
+     
+        //last audio's detector
+        if (indexAudioNowPlaying == arrayAllAudio.length - 1) {             
+            audioNowPlaying = 0;
+            setTimeout(() => {
+                
+                playOneAudioPlus(audioNowPlaying);   
+            }, 200)
+        } else {
+            setTimeout(() => {
+                
+                playOneAudioPlus(audioNowPlaying);    
+            }, 200)
+        }
+     
 }
 
 
@@ -147,35 +185,45 @@ function drawNewUi (arrayAllAudio, setNewClassForNewUIAudio, putNewUIThere, disp
             let upperFirstLetter  = newLi.innerHTML.match(/[a-z]/i).join('').toUpperCase();
             newLi.innerHTML = newLi.innerHTML.replace(/[a-z]/i, upperFirstLetter)
             
-        }, 200)        
+        }, 250)        
         newUl.appendChild(newLi);        
     }    
     containerForNewUIAudioElement.appendChild(newUl);
 }
 
-function playingNewUIAudioElements (takeNewClassFromNewUIAudio, arrayAllAudio) {  
+//todo
+function playingNewUIAudioElements (takeNewClassFromNewUIAudio, arrayAllHTMLAudioElement) {  
     arrayOfNewUIAudioInterface = document.querySelectorAll(takeNewClassFromNewUIAudio);    
     for (let i = 0; i < arrayOfNewUIAudioInterface.length; i++) {                   
-        arrayOfNewUIAudioInterface[i].addEventListener('click', () => {                    
-            if (arrayAllAudio[i].currentTime == 0){
-                playOneAudioPlus(i);
-            } else {                
-                stopAllAudio();                
-            }            
-            audioNowPlaying = i;                              
+        arrayOfNewUIAudioInterface[i].addEventListener('click', () => {      
+              
+                if (i != audioNowPlaying) {                    
+                    stopAllAudio();                                        
+                    playOneAudioPlus(i);
+                    
+                } else if (i == audioNowPlaying && (arrayOfNewUIAudioInterface[i].className != takeNewClassFromNewUIAudio.slice(1))) {
+                    pauseActualAudio();
+                    playButton.innerHTML = 'PLAY';
+                    
+                } else if (i == audioNowPlaying && (arrayOfNewUIAudioInterface[i].className == takeNewClassFromNewUIAudio.slice(1))) {                    
+                    playOneAudioPlus(i);                
+                }                  
+                
+            audioNowPlaying = i;      
+
+             
         })
     }    
 }
 
 //==============================
 
-
-
 // todo
 
 //DRAW NEW UI
 drawNewUi(arrayAllHTMLAudioElement, 'newLiClass', '#AudioPlayerByZloid', 'none', false);
 playingNewUIAudioElements('.newLiClass', arrayAllHTMLAudioElement);
+
 //EVENTS  
 //play next song when prev. ended
 for (let i = 0; i < arrayAllHTMLAudioElement.length; i++) { 
@@ -186,7 +234,16 @@ for (let i = 0; i < arrayAllHTMLAudioElement.length; i++) {
 
 //event button-play
 playButton.addEventListener('click', () => {
-    playOneAudioPlus(audioNowPlaying);
+    
+    if (playButton.innerHTML == 'PLAY') {
+        // stopAllAudio();
+        playOneAudioPlus(audioNowPlaying);
+        playButton.innerHTML = 'PAUSE';
+    } else {
+        pauseActualAudio();  
+        playButton.innerHTML = 'PLAY';
+    }
+
 })
 
 //event stop-button 
