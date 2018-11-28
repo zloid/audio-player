@@ -76,14 +76,18 @@ body {
     font-size: 21px;
 }
 
-#stop, #next, #play, #back {    
-    padding: 20px;    
+#stop, #next, #play, #back, #mute {    
+    padding: 15px;    
     outline: none;
     background-color: rgb(213, 228, 83);
     border-radius: 5px;
     margin: 10px;
     font-weight: bold;
     font-size: 15px;
+}
+
+#mute {
+    background-color: #ddd;
 }
 
 #stop {
@@ -115,3 +119,14 @@ body {
     height: 15px;
     line-height: 20px;
 }
+
+/* don't select any on page */
+body {
+    -webkit-user-select: none;
+    
+
+    -moz-user-select: none;
+    
+
+    -ms-user-select: none;
+  }
