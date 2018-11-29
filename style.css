@@ -76,7 +76,7 @@ body {
     font-size: 21px;
 }
 
-#stop, #next, #play, #back, #mute {    
+#stop, #next, #play, #back, #mute, #random, #randomActive {    
     padding: 15px;    
     outline: none;
     background-color: rgb(213, 228, 83);
@@ -86,8 +86,21 @@ body {
     font-size: 15px;
 }
 
-#mute {
+#mute, #random {
     background-color: #ddd;
+}
+
+#random {
+    background: url(img/shuffle.png) no-repeat;
+    background-size: contain;
+    opacity: .7;
+}
+
+#randomActive {
+    background: url(img/shuffle.png) no-repeat;
+    background-size: contain;
+    opacity: 1;
+    border: 2px solid rgba(12, 158, 243, 0.609);
 }
 
 #stop {
