@@ -1,47 +1,60 @@
+:root {
+    --same-bg-color: #ccc;
+}
+
+/* stop select any on page */
+body {
+    -webkit-user-select: none;    
+    -moz-user-select: none;    
+    -ms-user-select: none;
+}
+
 .newLiClassPlaying {
     display: block;
-    /* float: left; */
+    
     margin: 0 0 20px -30px;
     padding: 5px;
     font-size: 22px;
     text-align: center;
     cursor: pointer;
     color: #000;
-    /* background-color: #4CAF50; */
     background-color: #eee;
     border: 1px solid #999;
-    border-radius: 10px;
-    box-shadow: 0px 5px #999;
-
+    border-radius: 5px;
     background-color: #78c55a;
-    box-shadow: 0 0px #666;
-    transform: translateY(7px);
-
-    max-width: 80%;
-    width: 400px;
+    /* box-shadow: 0px 5px #999; */
+    /* box-shadow: 0 0px #666; */
+    /* transform: translateY(7px); */
+    transform: translateX(9px);
+    height: 30px;
+    max-width: 100%;
+    /* width: 400px; */
+    overflow: hidden;
 }
 
 .newLiClass {
-    /* display: block; */
+    overflow: hidden;
+    
     display: block;
-    /* float: left; */
+    
     margin: 0 0 20px -30px;
     padding: 5px;
     font-size: 22px;
     text-align: center;
     cursor: pointer;
     color: #000;
-    /* background-color: #4CAF50; */
+    
     background-color: #eee;
     border: 1px solid #999;
-    border-radius: 10px;
-    box-shadow: 0px 5px #999;
-
-    max-width: 80%;
-    width: 400px;
-
+    border-radius: 5px;
+    /* box-shadow: 0px 5px #999; */
+    
+    max-width: 100%;
+    /* width: 400px; */
+    /* height: 30px; */
+    
     overflow: hidden;
-  }
+}
   
   .newLiClass:hover {
       background-color: #3e8e41;
@@ -104,42 +117,176 @@ body {
 }
 
 #stop {
-    background-color: rgb(170, 48, 18);
+    background-color: rgb(228, 86, 51);
 }
 
 #play {
-    background-color: rgb(28, 117, 32);
+    background-color: rgb(56, 156, 53);
+    min-width: 80px;
+    width: 20%;
 }
 
-#songSlider{
-    width: 70%;
-    height: 22px;
+#AudioPlayerByZloid {
+    width: 95%;
+    max-width: 500px;
+    height: 70%;
+    padding: 10px;
+    background: #3e1c5f;
+    border-radius: 5px;
+}
+
+
+#allButtonsHere, #progressBarContainer {
+    background: #e6e6e6;
+    border-radius: 5px;
+} 
+ 
+
+
+/* 
+#trackProgress{    
+    
+    background-color: #78c55a; 
     background-color: #ccc;
-    border-radius: 3px;
+     
+}
+ */
+
+/* mobile */
+@media only screen and (max-width: 600px) {   
+    #progressBarContainer {
+        /* width: 98%; */
+        height: 42px;
+        padding: 5px;
+        margin: 5px 0;
+    }
+
+    /* pc    
+    #timer {     
+        width: 30%;
+        font-size: 18px;
+        float: left;
+    }
+     */
+    #timer {     
+        /* width: 24%; */
+        width: 80px;
+        font-size: 18px;
+        line-height: 22px;  
+        /* margin: -44px 0 0px 0; */
+        /* border: 1px solid #858383; */
+        /* float: left; */
+    }
+    
+    /* pc
+    #songSlider {
+        width: 60%;
+        min-width: 100px;
+        max-width: 350px;
+        height: 22px;
+        background-color: #ccc;
+        border-radius: 3px;         
+        position: absolute;
+        margin: 0 0 0 110px;
+    }
+     */
+    #songSlider {
+        width: 66%;        
+        height: 42px;
+        background-color: #ccc;
+        border-radius: 3px;
+        /* float: right; */
+        /* z-index: 1000; */
+        margin: 0 0 0 70px;
+        position: absolute;
+    }
+    
+    #trackProgress{    
+        /* width: 30px; */
+        /* padding: 0 0 0 10px; */
+        height: 42px;
+        /* background-color: #78c55a; */
+        background-color: orange;
+        border-radius: 3px;   
+        /* margin: 0 0 0 0px;      */
+    }
+    
+    #trackNameContainer {
+        position: absolute;
+        
+        width: 70%;
+        height: 30px;      
+        padding: 0 5px 0 10px; 
+        line-height: 20px;  
+        font-size: 20px;        
+        /* overflow: hidden;  */
+    }
+    
 }
 
-#trackProgress{
-    width: 0px;
+@media only screen and (min-width: 601px) {  
+    /* Large devices (laptops/desktops, 992px and up) */
+/* @media only screen and (min-width: 992px) {   */
+
+    #timer {     
+        width: 30%;
+        font-size: 18px;
+        float: left;
+    }
+    
+#progressBarContainer {
+    /* background-color: var(--same-bg-color); */
     height: 22px;
-    background-color: #78c55a;
-    border-radius: 3px;
+    padding: 5px;
+    margin: 5px 0;
+}
+    
+    #songSlider{
+        width: 48%;
+        /* min-width: 100px; */
+        /* max-width: 350px; */
+        height: 22px;
+        background-color: #ccc;
+        border-radius: 3px;         
+        position: absolute;
+        margin: 0 0 0 110px;
+        /* float: right; */
+    }
+
+    #trackProgress{    
+        width: 0px;
+        height: 22px;
+        /* padding: 0 0 0 10px; */
+        background-color: #78c55a;
+        border-radius: 3px;
+        /* z-index: -1000; */
+        /* position: absolute; */
+    }
+
+    #trackNameContainer {
+        position: absolute;
+        font-size: 20px;        
+        height: 15px;
+        line-height: 20px;
+        padding: 0 5px 0 10px;        
+    }
+
 }
 
-#trackNameContainer {
-    position: absolute;
-    font-size: 20px;
-    margin-left: -10px;
-    height: 15px;
-    line-height: 20px;
-}
 
-/* don't select any on page */
-body {
-    -webkit-user-select: none;
-    
 
-    -moz-user-select: none;
-    
 
-    -ms-user-select: none;
-  }
+/* Extra small devices (phones, 600px and down) */
+/* @media only screen and (max-width: 600px) {...}  */
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+/* @media only screen and (min-width: 600px) {...}  */
+
+/* Medium devices (landscape tablets, 768px and up) */
+/* @media only screen and (min-width: 768px) {...}  */
+
+/* Large devices (laptops/desktops, 992px and up) */
+/* @media only screen and (min-width: 992px) {...}  */
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+/* @media only screen and (min-width: 1200px) {...} */
