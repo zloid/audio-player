@@ -95,13 +95,14 @@ function drawAllNewButtons (containerForNewUIAudioElement) {
     newBtnNext.id = 'next';
     newBtnNext.innerHTML = 'NEXT';
     //render
-    divForButtons.appendChild(newBtnStop);
-    divForButtons.appendChild(newBtnBack);
     divForButtons.appendChild(newBtnPlay);
+    divForButtons.appendChild(newBtnBack);
+    divForButtons.appendChild(newBtnStop);
     divForButtons.appendChild(newBtnNext);
 }
 
 
+ 
 function drawProgressBarScreen (containerForNewUIAudioElement) {
     let divForProgressBar = document.createElement('div');
     divForProgressBar.id = 'progressBarContainer';
@@ -124,7 +125,26 @@ function drawProgressBarScreen (containerForNewUIAudioElement) {
     divForProgressBar.appendChild(timerObj);
     songSliderObj.appendChild(trackProgressObj);
     trackProgressObj.appendChild(trackNameContainerObj);
+
+//todo    
+// let progressBarContainerActualWidthInt = document.querySelector('#progressBarContainer').offsetWidth;
+// let progressBarContainerActualWidthInt = divForProgressBar.offsetWidth;
+// let timerContainerActualWidthInt = timerObj.offsetWidth;
+// let songSliderSetWidthInt = document.querySelector('#songSlider'); 
+// songSliderObj.style.width = progressBarContainerActualWidthInt - timerContainerActualWidthInt + 'px';
+
+resizeAudioProgressCover();
+ 
 }
+
+
+function resizeAudioProgressCover () {    
+    let progressBarContainerActualWidthInt = document.querySelector('#progressBarContainer').offsetWidth;
+    let timerContainerActualWidthInt = document.querySelector('#timer').offsetWidth;
+    let songSliderWidth = document.querySelector('#songSlider');    
+    songSliderWidth.style.width = progressBarContainerActualWidthInt - timerContainerActualWidthInt + 'px';    
+}
+
 //  ===================
 
 //todo
@@ -181,7 +201,14 @@ function namingProgressBarEqualCurrentAudioSrc (putAudioLowerCaseNameTo, arrayAl
         let AudioLowerCaseNameContainer = document.querySelector(putAudioLowerCaseNameTo);
         let  pathToAudio = arrayAllHTMLAudioElementObj[indexOfAudio].currentSrc;
         AudioLowerCaseNameContainer.innerHTML = pathToAudio.match(/[%-\.\w]*$/ig).join('').replace(/mp3|ogg|[^a-z]+/ig, ' ').toLowerCase();
-        AudioLowerCaseNameContainer.innerHTML = `${AudioLowerCaseNameContainer.innerHTML}`;
+        // AudioLowerCaseNameContainer.innerHTML = `${AudioLowerCaseNameContainer.innerHTML}`;
+        // console.log('AudioLowerCaseNameContainer.innerHTML.length:', .innerHTML.length)
+
+        // let SongSliderActualWidthInt = document.querySelector('#songSlider').offsetWidth;
+        
+        if (AudioLowerCaseNameContainer.innerHTML.length > 50) {
+            AudioLowerCaseNameContainer.innerHTML = AudioLowerCaseNameContainer.innerHTML.slice(0, 25) + ' ...';
+        }
     }, 1)
 }
 
@@ -200,7 +227,7 @@ function setSongPosition(event){
 }
 
  
-function playNextAudio (indexAudioNowPlayingInt, arrayAllAudio) {
+function playNextAudio (indexAudioNowPlayingInt, arrayAllAudio, delayBetweenAudioInt = 50) {
     if (isFirstPlayBool) {
         return
     }    
@@ -212,11 +239,11 @@ function playNextAudio (indexAudioNowPlayingInt, arrayAllAudio) {
     }
     setTimeout(() => {            
         randomSwitchBool ? shufflePlay() : playOneAudioPlus(audioNowPlayingInt);           
-    }, 150)
+    }, delayBetweenAudioInt)
 }
 
 
-function playBackAudio (arrayAllAudio) {  
+function playBackAudio (arrayAllAudio, delayBetweenAudioInt = 50) {  
     if (isFirstPlayBool) {
         return
     }
@@ -227,7 +254,7 @@ function playBackAudio (arrayAllAudio) {
     }
     setTimeout(() => {        
         randomSwitchBool ? shufflePlay() : playOneAudioPlus(audioNowPlayingInt);
-    }, 150)
+    }, delayBetweenAudioInt)
 }      
 
 //todo
@@ -265,7 +292,7 @@ function muteMode (audioNowPlayingInt) {
 }
 
 //todo
-function shufflePlay () {        
+function shufflePlay (delayBetweenAudioInt = 50) {        
     if (randomSwitchBool) {        
         stopActualAudio();
         audioNowPlayingInt--;
@@ -279,7 +306,7 @@ function shufflePlay () {
         }        
         setTimeout(() => {            
             playOneAudioPlus(audioNowPlayingInt);                         
-        }, 150)
+        }, delayBetweenAudioInt)
         randomButtonObj.id = 'randomActive';
     } else {
         randomButtonObj.id = 'random';        
@@ -296,6 +323,11 @@ function shufflePlay () {
 //DRAW NEW UI
 drawNewUi(arrayAllHTMLAudioElementObj, 'newLiClass', '#AudioPlayerByZloid', 'none', false);
 playingNewUIAudioElements('.newLiClass');
+
+window.addEventListener('resize', () => {
+    resizeAudioProgressCover();
+})
+
 
 //===========================================
 
@@ -360,6 +392,11 @@ randomButtonObj.addEventListener('click', () => {
     shufflePlay();
 })
  
+
+
+
+
+
 
 
 // console.timeEnd('runTimeAllScript');

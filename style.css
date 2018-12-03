@@ -9,10 +9,27 @@ body {
     -ms-user-select: none;
 }
 
+#wrapper {
+    /* width: 600px; */
+    /* border: 3px solid #999; */
+}
+
+
+#AudioPlayerByZloid {
+    /* width: 95%; */
+    max-width: 500px;
+    height: 70%;
+    padding: 10px;
+    background: #3e1c5f;
+    border-radius: 5px;
+}
+
+
 .newLiClassPlaying {
     display: block;
     
-    margin: 0 0 20px -30px;
+    /* margin: 0 0 20px -30px; */
+    margin: 0 0 0 -25px;
     padding: 5px;
     font-size: 22px;
     text-align: center;
@@ -26,10 +43,10 @@ body {
     /* box-shadow: 0 0px #666; */
     /* transform: translateY(7px); */
     transform: translateX(9px);
-    height: 30px;
+    /* height: 30px; */
     max-width: 100%;
     /* width: 400px; */
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 .newLiClass {
@@ -37,7 +54,8 @@ body {
     
     display: block;
     
-    margin: 0 0 20px -30px;
+    /* margin: 0 0 20px -30px; */
+    margin: 0 0 0 -25px;
     padding: 5px;
     font-size: 22px;
     text-align: center;
@@ -122,17 +140,8 @@ body {
 
 #play {
     background-color: rgb(56, 156, 53);
-    min-width: 80px;
+    min-width: 75px;
     width: 20%;
-}
-
-#AudioPlayerByZloid {
-    width: 95%;
-    max-width: 500px;
-    height: 70%;
-    padding: 10px;
-    background: #3e1c5f;
-    border-radius: 5px;
 }
 
 
@@ -141,6 +150,71 @@ body {
     border-radius: 5px;
 } 
  
+
+
+
+
+
+
+/* pc */
+
+/* @media only screen and (min-width: 601px) {   */
+    /* Large devices (laptops/desktops, 992px and up) */
+/* @media only screen and (min-width: 992px) {   */
+
+    #timer {     
+        width: 24%;
+        font-size: 18px;
+        float: left;
+        /* border: 1px solid #000; */
+    }
+    
+#progressBarContainer {
+    /* background-color: var(--same-bg-color); */
+    height: 22px;
+    padding: 5px;
+    margin: 5px 0;
+}
+    
+    #songSlider{
+        position: absolute;
+        width: 100%;
+        /* min-width: 100px; */
+        /* max-width: 350px; */
+        height: 22px;
+        background-color: #ccc;
+        border-radius: 3px;         
+        margin: 0 0 0 110px;
+        /* float: right; */
+    }
+
+    #trackProgress{    
+        width: 0px;
+        height: 22px;
+        /* padding: 0 0 0 10px; */
+        background-color: #78c55a;
+        border-radius: 3px;
+        /* z-index: -1000; */
+        /* position: absolute; */
+    }
+
+    #trackNameContainer {
+        position: absolute;
+        font-size: 20px;        
+        height: 15px;
+        line-height: 20px;
+        padding: 0 5px 0 10px;  
+        /* overflow: hidden;       */
+    }
+
+/* },
+@media only screen and*/
+
+
+
+
+
+
 
 
 /* 
@@ -154,6 +228,17 @@ body {
 
 /* mobile */
 @media only screen and (max-width: 600px) {   
+    
+    .newLiClass {
+        margin: 0 0 0 -25px;
+
+    }
+    
+    .newLiClassPlaying {
+        /* height: 3%; */
+        margin: 0 0 0 -25px;
+    }
+
     #progressBarContainer {
         /* width: 98%; */
         height: 42px;
@@ -205,8 +290,8 @@ body {
         /* width: 30px; */
         /* padding: 0 0 0 10px; */
         height: 42px;
-        /* background-color: #78c55a; */
-        background-color: orange;
+        background-color: #78c55a;
+        /* background-color: orange; */
         border-radius: 3px;   
         /* margin: 0 0 0 0px;      */
     }
@@ -222,55 +307,6 @@ body {
         /* overflow: hidden;  */
     }
     
-}
-
-@media only screen and (min-width: 601px) {  
-    /* Large devices (laptops/desktops, 992px and up) */
-/* @media only screen and (min-width: 992px) {   */
-
-    #timer {     
-        width: 30%;
-        font-size: 18px;
-        float: left;
-    }
-    
-#progressBarContainer {
-    /* background-color: var(--same-bg-color); */
-    height: 22px;
-    padding: 5px;
-    margin: 5px 0;
-}
-    
-    #songSlider{
-        width: 48%;
-        /* min-width: 100px; */
-        /* max-width: 350px; */
-        height: 22px;
-        background-color: #ccc;
-        border-radius: 3px;         
-        position: absolute;
-        margin: 0 0 0 110px;
-        /* float: right; */
-    }
-
-    #trackProgress{    
-        width: 0px;
-        height: 22px;
-        /* padding: 0 0 0 10px; */
-        background-color: #78c55a;
-        border-radius: 3px;
-        /* z-index: -1000; */
-        /* position: absolute; */
-    }
-
-    #trackNameContainer {
-        position: absolute;
-        font-size: 20px;        
-        height: 15px;
-        line-height: 20px;
-        padding: 0 5px 0 10px;        
-    }
-
 }
 
 
