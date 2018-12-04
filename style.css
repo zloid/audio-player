@@ -10,8 +10,7 @@ body {
 }
 
 #wrapper {
-    /* width: 600px; */
-    /* border: 3px solid #999; */
+    width: 100%;
 }
 
 
@@ -107,32 +106,111 @@ body {
     font-size: 21px;
 }
 
-#stop, #next, #play, #back, #mute, #random, #randomActive {    
-    padding: 15px;    
+@media only screen and (min-width: 601px) { 
+    #stop, #next, #play, #back {    
+        width: 20%;
+        min-width: 75px;
+        padding: 14px;    
+        outline: none;
+        background-color: rgb(213, 228, 83);
+        border-radius: 5px;
+        margin: 6px 12px;
+        font-weight: bold;
+        font-size: 15px;
+    }
+}
+
+#stop, #next, #play, #back {    
+    /* width: 20%; */
+    /* min-width: 75px; */
+    /* padding: 15px;     */
     outline: none;
     background-color: rgb(213, 228, 83);
     border-radius: 5px;
-    margin: 10px;
+    /* margin: 10px; */
     font-weight: bold;
-    font-size: 15px;
+    /* font-size: 15px; */
 }
 
-#mute, #random {
-    background-color: #ddd;
+ 
+ 
+#ContainerForAdvancedAudioControls {
+    margin: 5px 0;
+    padding: 5px;
 }
 
-#random {
-    background: url(img/shuffle.png) no-repeat;
+#mute {     
+    width: 30px;
+    height: 30px;
+    margin: 0 0 0 50px;
+    border: 3px solid #89898d;
+    background: url(img/mute.png) no-repeat;
+    background-size: contain;  
+    opacity: .5;
+    border-radius: 5px; 
+}
+
+#muteActive {     
+    width: 30px;
+    height: 30px;
+    margin: 0 0 0 50px;
+    border: 3px solid #2e40df;    
+    background: url(img/loud.png) no-repeat;
+    background-size: contain; 
+    border-radius: 5px;   
+}
+
+#random {     
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border: 3px solid #89898d;
+    background: url(img/2shuffle.png) no-repeat;
     background-size: contain;
-    opacity: .7;
+    opacity: .5;
+    border-radius: 5px;
 }
 
 #randomActive {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border: 3px solid #2e40df;     
+    background: url(img/3shuffleOn.png) no-repeat;
+    background-size: contain;
+    border-radius: 5px;
+}
+
+ 
+
+/*
+#random {
+    width: 15px;
+    margin: 10px;     
+    background: url(img/shuffle.png) no-repeat;
+    background-size: contain;
+    opacity: .7;     
+    padding: 15px;
+    border-radius: 20px;
+    outline: none;
+}
+
+#randomActive {
+    width: 15px;
     background: url(img/shuffle.png) no-repeat;
     background-size: contain;
     opacity: 1;
     border: 2px solid rgba(12, 158, 243, 0.609);
+    padding: 15px;
+    border-radius: 20px;
+    outline: none;
 }
+*/
+
+
+/* #randomActive:active{
+    outline: none;
+} */
 
 #stop {
     background-color: rgb(228, 86, 51);
@@ -140,17 +218,16 @@ body {
 
 #play {
     background-color: rgb(56, 156, 53);
-    min-width: 75px;
-    width: 20%;
+    /* min-width: 75px; */
+    /* width: 20%; */
 }
 
 
-#allButtonsHere, #progressBarContainer {
+#allButtonsHere, #progressBarContainer, #ContainerForAdvancedAudioControls {
     background: #e6e6e6;
     border-radius: 5px;
 } 
  
-
 
 
 
@@ -227,7 +304,20 @@ body {
  */
 
 /* mobile */
+
+
 @media only screen and (max-width: 600px) {   
+    #stop, #next, #play, #back {
+        width: 22%;
+        /* min-width: 75px; */
+        padding: 10px 2px;
+        outline: none;
+        /* background-color: rgb(213, 228, 83); */
+        border-radius: 5px;
+        margin: 4px;
+        font-weight: bold;
+        font-size: 15px;
+    }
     
     .newLiClass {
         margin: 0 0 0 -25px;
@@ -308,8 +398,15 @@ body {
     }
     
 }
+/* 
+@media only screen and (max-width: 350px) {   
+    #stop, #next, #play, #back {
+        width: 22%;
+        padding: 10px 4px;
+        /* margin: 4px 4px; */
+   
 
-
+/*
 
 
 /* Extra small devices (phones, 600px and down) */

@@ -38,8 +38,8 @@ arrayAllHTMLAudioElementObj = document.querySelectorAll('audio'),
 // playButtonObj = document.querySelector('#play'),
 // nextButtonObj = document.querySelector('#next'),
 // backButtonObj = document.querySelector('#back'),
-muteButtonObj = document.querySelector('#mute'),
-randomButtonObj = document.querySelector('#random'),
+// muteButtonObj = document.querySelector('#mute'),
+// randomButtonObj = document.querySelector('#random'),
 // takeAudioProgressBarObj = document.querySelector('#songSlider'),
 arrayOfNewUIAudioInterfaceObj;
 
@@ -51,6 +51,7 @@ function drawNewUi (arrayAllAudio, setNewClassForNewUIAudio, putNewUIThere, disp
     //todo
     drawProgressBarScreen(containerForNewUIAudioElement);
     drawAllNewButtons(containerForNewUIAudioElement);
+    drawAdvancedAudioControls(containerForNewUIAudioElement);
 
     let newUl = document.createElement('ul');        
     for (let i = 0; i < arrayAllAudio.length; i++) {                 
@@ -106,7 +107,6 @@ function drawAllNewButtons (containerForNewUIAudioElement) {
 function drawProgressBarScreen (containerForNewUIAudioElement) {
     let divForProgressBar = document.createElement('div');
     divForProgressBar.id = 'progressBarContainer';
-    containerForNewUIAudioElement.appendChild(divForProgressBar);
     //songSlider
     let songSliderObj = document.createElement('div');
     songSliderObj.id = 'songSlider';
@@ -121,22 +121,32 @@ function drawProgressBarScreen (containerForNewUIAudioElement) {
     timerObj.id = 'timer';
     timerObj.innerHTML = '0:00 &#128337; 0:00';
     //render
+    containerForNewUIAudioElement.appendChild(divForProgressBar);
     divForProgressBar.appendChild(songSliderObj);
     divForProgressBar.appendChild(timerObj);
     songSliderObj.appendChild(trackProgressObj);
     trackProgressObj.appendChild(trackNameContainerObj);
 
-//todo    
-// let progressBarContainerActualWidthInt = document.querySelector('#progressBarContainer').offsetWidth;
-// let progressBarContainerActualWidthInt = divForProgressBar.offsetWidth;
-// let timerContainerActualWidthInt = timerObj.offsetWidth;
-// let songSliderSetWidthInt = document.querySelector('#songSlider'); 
-// songSliderObj.style.width = progressBarContainerActualWidthInt - timerContainerActualWidthInt + 'px';
-
 resizeAudioProgressCover();
- 
 }
 
+function drawAdvancedAudioControls (containerForNewUIAudioElement) {
+    let divContainerForAdvancedAudioControlsObj = document.createElement('div');
+    divContainerForAdvancedAudioControlsObj.id = 'ContainerForAdvancedAudioControls';
+    //shuffle
+    let divShuffleButtonObj = document.createElement('div');
+    divShuffleButtonObj.id = 'randomActive';
+    divShuffleButtonObj.id = 'random';
+    // divShuffleButtonObj.innerHTML = 'shuffle';
+    //mute
+    let divMuteButtonObj = document.createElement('div');
+    divMuteButtonObj.id = 'muteActive';
+    divMuteButtonObj.id = 'mute';
+    //render
+    containerForNewUIAudioElement.appendChild(divContainerForAdvancedAudioControlsObj);
+    divContainerForAdvancedAudioControlsObj.appendChild(divShuffleButtonObj);
+    divContainerForAdvancedAudioControlsObj.appendChild(divMuteButtonObj);
+}
 
 function resizeAudioProgressCover () {    
     let progressBarContainerActualWidthInt = document.querySelector('#progressBarContainer').offsetWidth;
@@ -283,11 +293,13 @@ function playingNewUIAudioElements (takeNewClassFromNewUIAudio) {
 
 function muteMode (audioNowPlayingInt) {    
     if (muteSwitchBool) {
-        muteButtonObj.innerHTML = 'loud'        
-        arrayAllHTMLAudioElementObj[audioNowPlayingInt].volume = 0;        
+        // muteButtonObj.innerHTML = 'loud';                
+        arrayAllHTMLAudioElementObj[audioNowPlayingInt].volume = 0;
+        muteButtonObj.id = 'muteActive';        
     } else {           
-        arrayAllHTMLAudioElementObj[audioNowPlayingInt].volume = 1;                   
-        muteButtonObj.innerHTML = 'mute'
+        arrayAllHTMLAudioElementObj[audioNowPlayingInt].volume = 1;                  
+        // muteButtonObj.innerHTML = 'mute'
+        muteButtonObj.id = 'mute';        
     }     
 }
 
@@ -299,7 +311,7 @@ function shufflePlay (delayBetweenAudioInt = 50) {
         let randomAudioInt = Math.floor(Math.random() * (arrayAllHTMLAudioElementObj.length - 1));
         // console.log('1audioNowPlayingInt:', audioNowPlayingInt);
         // console.log('1randomAudioInt:', randomAudioInt);        
-        (audioNowPlayingInt == randomAudioInt) ? audioNowPlayingInt = randomAudioInt+= 2 : audioNowPlayingInt = randomAudioInt;
+        (audioNowPlayingInt == randomAudioInt) ? audioNowPlayingInt = randomAudioInt+= 3 : audioNowPlayingInt = randomAudioInt;
         // console.log('2audioNowPlayingInt:', audioNowPlayingInt);        
         if (audioNowPlayingInt > (arrayAllHTMLAudioElementObj.length - 1)) {
             audioNowPlayingInt = Math.round(randomAudioInt/2);
@@ -335,6 +347,8 @@ let stopButtonObj = document.querySelector('#stop'),
 backButtonObj = document.querySelector('#back'),
 nextButtonObj = document.querySelector('#next'),
 playButtonObj = document.querySelector('#play'),
+randomButtonObj = document.querySelector('#random'),
+muteButtonObj = document.querySelector('#mute'),
 takeAudioProgressBarObj = document.querySelector('#songSlider');
 //===========================================
 
