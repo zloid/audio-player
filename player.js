@@ -53,8 +53,10 @@ function drawNewUi (arrayAllAudio, setNewClassForNewUIAudio, putNewUIThere, disp
     drawAllNewButtons(containerForNewUIAudioElement);
     drawAdvancedAudioControls(containerForNewUIAudioElement);
 
-    let newUl = document.createElement('ul');        
-    for (let i = 0; i < arrayAllAudio.length; i++) {                 
+    let newUl = document.createElement('ul');  
+    newUl.id = 'ulForNewUiAudioElement';
+    for (let i = 0; i < arrayAllAudio.length; i++) { 
+
         arrayAllAudio[i].style.display = displayOldUIAudio;        
         arrayAllAudio[i].controls = oldUIAudioControlsBool;        
         let newLi = document.createElement('li');        
@@ -63,12 +65,12 @@ function drawNewUi (arrayAllAudio, setNewClassForNewUIAudio, putNewUIThere, disp
         let k = i + 1; 
         setTimeout(() => {
             let  pathToAudio = arrayAllAudio[i].currentSrc;
-            newLi.innerHTML = '▶ ' + k + ') ' + pathToAudio.match(/[%-\.\w]*$/ig).join('').replace(/mp3|ogg|[^a-z]+/ig, ' ');
+            newLi.innerHTML = '▶ ' + k + '. ' + pathToAudio.match(/[%-\.\w]*$/ig).join('').replace(/mp3|ogg|[^a-z]+/ig, ' ');
             
             let upperFirstLetter  = newLi.innerHTML.match(/[a-z]/i).join('').toUpperCase();
             newLi.innerHTML = newLi.innerHTML.replace(/[a-z]/i, upperFirstLetter)
             
-        }, 250)        
+        }, 300)        
         newUl.appendChild(newLi);        
     }    
     containerForNewUIAudioElement.appendChild(newUl);
@@ -158,17 +160,22 @@ function resizeAudioProgressCover () {
 //  ===================
 
 //todo
-function playOneAudioPlus (indexOfAudio) {
+function playOneAudioPlus (indexOfAudio) {    
+ 
     isFirstPlayBool = false;
     muteMode(indexOfAudio);    
-    pauseActualAudio();
+    
+    arrayAllHTMLAudioElementObj[indexOfAudio].play();   
+    
     namingProgressBarEqualCurrentAudioSrc('#trackNameContainer', arrayAllHTMLAudioElementObj, indexOfAudio);
-    updaitingTimeOfAudio(arrayAllHTMLAudioElementObj, indexOfAudio, '#timer');            
-    arrayAllHTMLAudioElementObj[indexOfAudio].play();        
+    updaitingTimeOfAudio(arrayAllHTMLAudioElementObj, indexOfAudio, '#timer');       
     updaitingProgressBarOfAudio(arrayAllHTMLAudioElementObj, indexOfAudio, '#songSlider', '#trackProgress');
+
     arrayOfNewUIAudioInterfaceObj[indexOfAudio].className = 'newLiClassPlaying';
-    arrayOfNewUIAudioInterfaceObj[indexOfAudio].innerHTML = arrayOfNewUIAudioInterfaceObj[indexOfAudio].innerHTML.replace(/▶/, '||');
+    arrayOfNewUIAudioInterfaceObj[indexOfAudio].innerHTML = arrayOfNewUIAudioInterfaceObj[indexOfAudio].innerHTML.replace(/▶/, '❚❚');
     playButtonObj.innerHTML = 'PAUSE';
+    arrayOfNewUIAudioInterfaceObj[audioNowPlayingInt].style.color = '';
+    
 } 
 
 
@@ -176,15 +183,19 @@ function stopActualAudio () {
     arrayAllHTMLAudioElementObj[audioNowPlayingInt].pause();
     arrayAllHTMLAudioElementObj[audioNowPlayingInt].currentTime = 0;
     arrayOfNewUIAudioInterfaceObj[audioNowPlayingInt].className = 'newLiClass';
-    arrayOfNewUIAudioInterfaceObj[audioNowPlayingInt].innerHTML = arrayOfNewUIAudioInterfaceObj[audioNowPlayingInt].innerHTML.replace(/■ |[|][|]/, '▶ ');            
+    arrayOfNewUIAudioInterfaceObj[audioNowPlayingInt].innerHTML = arrayOfNewUIAudioInterfaceObj[audioNowPlayingInt].innerHTML.replace(/❚❚/, '▶ ');            
     playButtonObj.innerHTML = 'PLAY';
+    arrayOfNewUIAudioInterfaceObj[audioNowPlayingInt].style.color = '#389c35';
 }
 
 //todo
 function pauseActualAudio () {
     arrayAllHTMLAudioElementObj[audioNowPlayingInt].pause();
     arrayOfNewUIAudioInterfaceObj[audioNowPlayingInt].className = 'newLiClass';
-    arrayOfNewUIAudioInterfaceObj[audioNowPlayingInt].innerHTML = arrayOfNewUIAudioInterfaceObj[audioNowPlayingInt].innerHTML.replace(/[|][|]/, '▶');     
+    arrayOfNewUIAudioInterfaceObj[audioNowPlayingInt].style.color = '#389c35';
+
+    // arrayOfNewUIAudioInterfaceObj[audioNowPlayingInt].classList.add("newLiClassPlayingPaused");
+    arrayOfNewUIAudioInterfaceObj[audioNowPlayingInt].innerHTML = arrayOfNewUIAudioInterfaceObj[audioNowPlayingInt].innerHTML.replace(/❚❚/, '▶');     
 }
 
 function updaitingTimeOfAudio (arrayAllHTMLAudioElementObj, indexOfAudio, putTimerTo) {    
@@ -203,6 +214,12 @@ function updaitingProgressBarOfAudio (arrayAllHTMLAudioElementObj, indexOfAudio,
         let getSongSlider = document.querySelector(idSongSlider);
         let percentageOfSlider = getSongSlider.offsetWidth * percentageOfSong;
         document.querySelector(idTrackProgress).style.width = Math.round(percentageOfSlider) + "px";
+//todo
+        // if (percentageOfSlider > 0) {
+        //     arrayAllHTMLAudioElementObj[indexOfAudio].className = 'newLiClassPlaying';
+        // } else {
+        //     arrayAllHTMLAudioElementObj[indexOfAudio].className = 'newLiClass';
+        // }
     })
 }
 
@@ -228,9 +245,6 @@ function setSongPosition(event){
     //window.event
     // let clickLocationInt =  event.layerX - takeAudioProgressBarObj.offsetLeft;
     let clickLocationInt =  event.layerX;
-    console.log('clickLocationInt:', clickLocationInt)
-    console.log('songSliderWidthInt:', songSliderWidthInt)
-
     let percentage = (clickLocationInt/songSliderWidthInt);
     //bingo
     arrayAllHTMLAudioElementObj[audioNowPlayingInt].currentTime = arrayAllHTMLAudioElementObj[audioNowPlayingInt].duration * percentage;
@@ -242,6 +256,7 @@ function playNextAudio (indexAudioNowPlayingInt, arrayAllAudio, delayBetweenAudi
         return
     }    
     stopActualAudio();
+    arrayOfNewUIAudioInterfaceObj[indexAudioNowPlayingInt].style.color = '';
     audioNowPlayingInt = indexAudioNowPlayingInt + 1;     
         //last audio's detector
     if (indexAudioNowPlayingInt == arrayAllAudio.length - 1) {             
@@ -258,6 +273,7 @@ function playBackAudio (arrayAllAudio, delayBetweenAudioInt = 50) {
         return
     }
     stopActualAudio();
+    arrayOfNewUIAudioInterfaceObj[audioNowPlayingInt].style.color = '';
     audioNowPlayingInt--;
     if (audioNowPlayingInt < 0) {
         audioNowPlayingInt = arrayAllAudio.length - 1;
@@ -307,6 +323,7 @@ function muteMode (audioNowPlayingInt) {
 function shufflePlay (delayBetweenAudioInt = 50) {        
     if (randomSwitchBool) {        
         stopActualAudio();
+        arrayOfNewUIAudioInterfaceObj[audioNowPlayingInt].style.color = '';
         audioNowPlayingInt--;
         let randomAudioInt = Math.floor(Math.random() * (arrayAllHTMLAudioElementObj.length - 1));
         // console.log('1audioNowPlayingInt:', audioNowPlayingInt);
@@ -333,7 +350,7 @@ function shufflePlay (delayBetweenAudioInt = 50) {
 // todo
 
 //DRAW NEW UI
-drawNewUi(arrayAllHTMLAudioElementObj, 'newLiClass', '#AudioPlayerByZloid', 'none', false);
+drawNewUi(arrayAllHTMLAudioElementObj, 'newLiClass', '#AudioPlayerByZloid', '', true);
 playingNewUIAudioElements('.newLiClass');
 
 window.addEventListener('resize', () => {
@@ -353,10 +370,12 @@ takeAudioProgressBarObj = document.querySelector('#songSlider');
 //===========================================
 
 //EVENTS  
+
+ 
 //play next song when prev. ended
 for (let i = 0; i < arrayAllHTMLAudioElementObj.length; i++) { 
-    arrayAllHTMLAudioElementObj[i].addEventListener('ended', () => {        
-        playNextAudio(i, arrayAllHTMLAudioElementObj);
+    arrayAllHTMLAudioElementObj[i].addEventListener('ended', () => {  
+            playNextAudio(i, arrayAllHTMLAudioElementObj);
         //todo
         muteMode(i);
     })
@@ -380,7 +399,7 @@ playButtonObj.addEventListener('click', () => {
 stopButtonObj.onclick = stopActualAudio;
 
 //event nextButtonObj
-nextButtonObj.addEventListener('click',() => {
+nextButtonObj.addEventListener('click', () => {
     playNextAudio(audioNowPlayingInt, arrayAllHTMLAudioElementObj);
 })
 
