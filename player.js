@@ -4,6 +4,7 @@ let audioNowPlayingInt = 0,
     isFirstPlayBool = true,
     muteSwitchBool = false,
     randomSwitchBool = false,
+    playPauseSwitchBool = false,
     allHTMLAudioElementArr = document.querySelectorAll('audio'),
     arrayOfNewUIAudioInterfaceObj;
 
@@ -82,7 +83,6 @@ function drawProgressBarScreen (containerForNewUIAudioElement) {
     divForProgressBar.appendChild(timerObj);
     songSliderObj.appendChild(trackProgressObj);
     trackProgressObj.appendChild(trackNameContainerObj);
-
 resizeAudioProgressCover();
 }
 
@@ -117,7 +117,7 @@ function resizeAudioProgressCover () {
 function playOneAudioPlus (indexOfAudio) {    
  
     isFirstPlayBool = false;
-    muteMode(indexOfAudio);    
+    muteModeAction(indexOfAudio);    
     
     allHTMLAudioElementArr[indexOfAudio].play();   
     
@@ -136,6 +136,7 @@ function playOneAudioPlus (indexOfAudio) {
 function stopActualAudio () {                  
     allHTMLAudioElementArr[audioNowPlayingInt].pause();
     allHTMLAudioElementArr[audioNowPlayingInt].currentTime = 0;
+    playPauseSwitchBool = false;
     arrayOfNewUIAudioInterfaceObj[audioNowPlayingInt].className = 'newLiClass';
     arrayOfNewUIAudioInterfaceObj[audioNowPlayingInt].innerHTML = arrayOfNewUIAudioInterfaceObj[audioNowPlayingInt].innerHTML.replace(/❚❚/, '▶ ');            
     playButtonObj.innerHTML = 'PLAY';
@@ -220,7 +221,7 @@ function playNextAudio (indexAudioNowPlayingInt, arrayAllAudio, delayBetweenAudi
         return
     }    
     //todo
-    // muteMode(indexAudioNowPlayingInt);
+    // muteModeAction(indexAudioNowPlayingInt);
 
     stopActualAudio();
     arrayOfNewUIAudioInterfaceObj[indexAudioNowPlayingInt].style.color = '';
@@ -251,38 +252,39 @@ function playBackAudio (arrayAllAudio) {
     }, 100)
 }      
 
-//todo
+function playPauseAction (audioNowPlayingInt) {    
+    if (!playPauseSwitchBool) {        
+        playOneAudioPlus(audioNowPlayingInt);
+        playButtonObj.innerHTML = 'PAUSE';
+    } else {
+        pauseActualAudio();  
+        playButtonObj.innerHTML = 'PLAY';
+    }    
+    playPauseSwitchBool ? playPauseSwitchBool = false : playPauseSwitchBool = true;
+}
+
 function playingNewUIAudioElements (takeNewClassFromNewUIAudio) {  
     arrayOfNewUIAudioInterfaceObj = document.querySelectorAll(takeNewClassFromNewUIAudio);    
     for (let i = 0; i < arrayOfNewUIAudioInterfaceObj.length; i++) {                   
-        arrayOfNewUIAudioInterfaceObj[i].addEventListener('click', () => {      
-              
-                if (i != audioNowPlayingInt) {                    
-                    stopActualAudio();                                        
-                    playOneAudioPlus(i);
-                    
-                } else if (i == audioNowPlayingInt && (arrayOfNewUIAudioInterfaceObj[i].className != takeNewClassFromNewUIAudio.slice(1))) {
-                    pauseActualAudio();
-                    playButtonObj.innerHTML = 'PLAY';
-                    
-                } else if (i == audioNowPlayingInt && (arrayOfNewUIAudioInterfaceObj[i].className == takeNewClassFromNewUIAudio.slice(1))) {                    
-                    playOneAudioPlus(i);                
-                }                  
-                
-            audioNowPlayingInt = i;                   
+        arrayOfNewUIAudioInterfaceObj[i].addEventListener('click', () => {                    
+            if (i != audioNowPlayingInt) {                    
+                stopActualAudio();                                        
+                playOneAudioPlus(i);
+                playPauseSwitchBool = true;
+            } else {
+                playPauseAction(audioNowPlayingInt);
+            }                
+            audioNowPlayingInt = i;                 
         })
-    }    
+    }        
 }
 
-
-function muteMode (audioNowPlayingInt) {    
-    if (muteSwitchBool) {
-        // muteButtonObj.innerHTML = 'loud';                
+function muteModeAction (audioNowPlayingInt) {    
+    if (muteSwitchBool) {              
         allHTMLAudioElementArr[audioNowPlayingInt].volume = 0;
         muteButtonObj.id = 'muteActive';        
     } else {           
-        allHTMLAudioElementArr[audioNowPlayingInt].volume = 1;                  
-        // muteButtonObj.innerHTML = 'mute'
+        allHTMLAudioElementArr[audioNowPlayingInt].volume = 1; 
         muteButtonObj.id = 'mute';        
     }     
 }
@@ -329,12 +331,13 @@ window.addEventListener('resize', () => {
 //===========================================
 
 let stopButtonObj = document.querySelector('#stop'),
-backButtonObj = document.querySelector('#back'),
-nextButtonObj = document.querySelector('#next'),
-playButtonObj = document.querySelector('#play'),
-randomButtonObj = document.querySelector('#random'),
-muteButtonObj = document.querySelector('#mute'),
-takeAudioProgressBarObj = document.querySelector('#songSlider');
+    backButtonObj = document.querySelector('#back'),
+    nextButtonObj = document.querySelector('#next'),
+    playButtonObj = document.querySelector('#play'),
+    randomButtonObj = document.querySelector('#random'),
+    muteButtonObj = document.querySelector('#mute'),
+    playPauseButtonObj = document.querySelector('#play'),
+    takeAudioProgressBarObj = document.querySelector('#songSlider');
 //===========================================
 
 //EVENTS  
@@ -347,23 +350,23 @@ for (let i = 0; i < allHTMLAudioElementArr.length; i++) {
 
              
         //todo
-        // muteMode(i);
+        // muteModeAction(i);
     })
 }    
 
 //event button-play
-playButtonObj.addEventListener('click', () => {
+// playButtonObj.addEventListener('click', () => {
     
-    if (playButtonObj.innerHTML == 'PLAY') {
+    // if (playButtonObj.innerHTML == 'PLAY') {
         
-        playOneAudioPlus(audioNowPlayingInt);
-        playButtonObj.innerHTML = 'PAUSE';
-    } else {
-        pauseActualAudio();  
-        playButtonObj.innerHTML = 'PLAY';
-    }
+    //     playOneAudioPlus(audioNowPlayingInt);
+    //     playButtonObj.innerHTML = 'PAUSE';
+    // } else {
+    //     pauseActualAudio();  
+    //     playButtonObj.innerHTML = 'PLAY';
+    // }
 
-})
+// });
 
 //event stop-button 
 stopButtonObj.onclick = stopActualAudio;
@@ -386,8 +389,15 @@ takeAudioProgressBarObj.addEventListener('click', setSongPosition);
 //event mute
 muteButtonObj.addEventListener('click', () => {
     muteSwitchBool ? muteSwitchBool = false : muteSwitchBool = true;
-    muteMode(audioNowPlayingInt);
-})
+    muteModeAction(audioNowPlayingInt);
+});
+
+//event playPause on button
+//todo
+playPauseButtonObj.addEventListener('click', () => {
+    playPauseAction(audioNowPlayingInt);     
+});
+
 
 //event random
 randomButtonObj.addEventListener('click', () => {
