@@ -1,6 +1,6 @@
 # Audio player on pure JS
 
-<h2>How it works:</h2>   
+<h2>How it works</h2>   
 <ol>
   <li>Put HTML5 &lt;audio&gt; elements in a html page</li>
   <li>Connect player.js to the same html page (+ css)</li>

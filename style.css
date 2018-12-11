@@ -1,27 +1,20 @@
-:root {
+/* :root {
     --same-bg-color: #ccc;
-}
+} */
 
-/* stop select any on page */
 body {
-    -webkit-user-select: none;    
-    -moz-user-select: none;    
+    font-size: 20px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-color: #f4ecd2;
+    /* stop select any on page */
+    -webkit-user-select: none;
+    -moz-user-select: none;
     -ms-user-select: none;
 }
 
 #wrapper {
     width: 100%;
 }
-
-/* 
-#AudioPlayerByZloid {
-    max-width: 500px;
-    height: 70%;
-    padding: 10px;
-    background: #3e1c5f;
-    border-radius: 5px;
-} 
-*/
 
 #AudioPlayerByZloid {
     max-width: 500px;
@@ -37,66 +30,50 @@ body {
 
 #ulForNewUiAudioElement {
     list-style-type: none;
-    /* margin: 0; */
     padding: 0 20px;
 }
 
- 
 .newLiClass {
     overflow: hidden;
     display: block;
     padding: 5px 20px;
     font-size: 20px;
-    /* text-align: center; */
     cursor: pointer;
     color: #000;
     background-color: #f1f3f4;
-    /* border-bottom: 1px solid #999; */
     border: 1px solid #bebebe;
     border-radius: 5px;
     max-width: 100%;
     overflow: hidden;
     color: #424242;
 }
- 
-  
+
 .newLiClassPlaying {
     display: block;
     padding: 5px 20px;
     margin-left: 5px;
     font-size: 20px;
-    /* text-align: center; */
     cursor: pointer;
     color: #000;
     background-color: #eee;
     border-bottom: 1px solid #999;
     border-radius: 5px;
     background-color: #78c55a;
-    /* transform: translateX(9px); */
     color: #424242;
 }
 
-  .newLiClass:hover {
-      background-color: #3e8e41;
-      background-color: rgb(221, 221, 221);
-    }
-  
-  .newLiClass:active {
-    background-color: #78c55a;
-    /* box-shadow: 0 0px #666; */
-    /* transform: translateY(2px); */
-  }
+.newLiClass:hover {
+    background-color: #3e8e41;
+    background-color: rgb(221, 221, 221);
+}
 
-body {
-    font-size: 20px;
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    background-color: #f4ecd2;
-    /* background-color: #dcd2f4; */
+.newLiClass:active {
+    background-color: #78c55a;
 }
 
 .classOfNewSongLiElement {
     display: block;
-    margin: 10px; 
+    margin: 10px;
     background-color: #faca62;
     border-radius: 5px;
     text-align: center;
@@ -109,11 +86,14 @@ body {
     font-size: 21px;
 }
 
-@media only screen and (min-width: 601px) { 
-    #stop, #next, #play, #back {    
+@media only screen and (min-width: 601px) {
+    #stop,
+    #next,
+    #play,
+    #back {
         width: 20%;
         min-width: 75px;
-        padding: 14px;    
+        padding: 14px;
         outline: none;
         background-color: rgb(213, 228, 83);
         border-radius: 5px;
@@ -123,71 +103,46 @@ body {
     }
 }
 
-#stop, #next, #play, #back {    
-    /* width: 20%; */
-    /* min-width: 75px; */
-    /* padding: 15px;     */
+#stop,
+#next,
+#play,
+#back {
     outline: none;
     background-color: rgb(213, 228, 83);
     border-radius: 5px;
-    /* margin: 10px; */
     font-weight: bold;
-    /* font-size: 15px; */
     color: #424242
 }
 
- 
- 
-
-#mute {     
+#mute {
     width: 32px;
     height: 30px;
     margin: 0 0 0 50px;
     border: 2px solid #89898d;
-    /* padding: 10px; */
-    /* background: url(img/mute.png) no-repeat; */
-    /* background-size: contain;   */
     background: url(img/muteOnOff-spritesheet-2.png) no-repeat;
-    /* background-image: url(chrome://global/skin/media/pauseButton.svg); */
-
-    
-    /* background: url(img/volume-mute.svg) no-repeat #fff; */
-
     background-size: cover;
-    /* background-position: 1px 0px; */
     background-position: -30px 0px;
     opacity: .5;
-    /* border: 3px; */
-    border-radius: 5px; 
+    border-radius: 5px;
 }
 
-#muteActive {     
+#muteActive {
     width: 30px;
     height: 30px;
     margin: 0 0 0 50px;
-    border: 2px solid #2e40df;    
-    /* background: url(img/loud.png) no-repeat; */
-    /* background-size: contain;  */
+    border: 2px solid #2e40df;
     background: url(img/muteOnOff-spritesheet-2.png) no-repeat;
     background-size: cover;
-    /* background: url(img/volume-medium.svg) no-repeat #fff; */
-    /* background-size: contain; */
-    /* background-size: contain; */
-    /* background-position: 1px 0px; */
-    border-radius: 5px;   
-    
+    border-radius: 5px;
 }
 
-#random {     
+#random {
     position: absolute;
     width: 30px;
     height: 30px;
     border: 2px solid #89898d;
-    /* background: url(img/2shuffle.png) no-repeat; */
-    /* background-size: contain; */
     background: url(img/shuffle-spritesheet-2.png) no-repeat;
     background-size: cover;
-    /* background-position: 0px 0px; */
     opacity: .5;
     border-radius: 5px;
 }
@@ -196,212 +151,111 @@ body {
     position: absolute;
     width: 30px;
     height: 30px;
-    border: 2px solid #2e40df;     
-    /* background: url(img/3shuffleOn.png) no-repeat; */
-    /* background-size: contain; */
+    border: 2px solid #2e40df;
     background: url(img/shuffle-spritesheet-2.png) no-repeat;
     background-size: cover;
     background-position: -30px 0px;
     border-radius: 5px;
 }
 
-
 #stop {
     background-color: rgb(228, 86, 51);
 }
 
 #play {
-    background-color: rgb(56, 156, 53); 
+    background-color: rgb(56, 156, 53);
 }
 
-
-#allButtonsHere, #progressBarContainer, #ContainerForAdvancedAudioControls {
+#allButtonsHere,
+#progressBarContainer,
+#ContainerForAdvancedAudioControls {
     background: #e6e6e6;
     border-radius: 5px;
     margin: 2px 0;
     color: #424242
-} 
-
+}
 
 #ContainerForAdvancedAudioControls {
     padding: 5px;
 }
 
+#timer {
+    width: 24%;
+    font-size: 18px;
+    float: left;
+}
 
-
-
-/* pc */
-
-/* @media only screen and (min-width: 601px) {   */
-    /* Large devices (laptops/desktops, 992px and up) */
-/* @media only screen and (min-width: 992px) {   */
-
-    #timer {     
-        width: 24%;
-        font-size: 18px;
-        float: left;
-        /* border: 1px solid #000; */
-    }
-    
 #progressBarContainer {
-    /* background-color: var(--same-bg-color); */
     height: 22px;
     padding: 5px;
-    /* margin: 5px 0; */
 }
-    
-    #songSlider{
-        position: absolute;
-        width: 100%;
-        /* min-width: 100px; */
-        /* max-width: 350px; */
-        height: 22px;
-        background-color: #ccc;
-        border-radius: 3px;         
-        margin: 0 0 0 110px;
-        /* float: right; */
-    }
 
-    #trackProgress{    
-        width: 0px;
-        height: 22px;
-        /* padding: 0 0 0 10px; */
-        background-color: #78c55a;
-        border-radius: 3px;
-        /* z-index: -1000; */
-        /* position: absolute; */
-    }
-
-    #trackNameContainer {
-        position: absolute;
-        font-size: 20px;        
-        height: 15px;
-        line-height: 20px;
-        padding: 0 5px 0 10px;  
-        /* overflow: hidden;       */
-    }
-
-/* },
-@media only screen and*/
-
-/* 
-#trackProgress{    
-    
-    background-color: #78c55a; 
+#songSlider {
+    position: absolute;
+    width: 100%;
+    height: 22px;
     background-color: #ccc;
-     
+    border-radius: 3px;
+    margin: 0 0 0 110px;
 }
- */
 
-/* mobile */
+#trackProgress {
+    width: 0px;
+    height: 22px;
+    background-color: #78c55a;
+    border-radius: 3px;
+}
 
+#trackNameContainer {
+    position: absolute;
+    font-size: 20px;
+    height: 15px;
+    line-height: 20px;
+    padding: 0 5px 0 10px;
+}
 
-@media only screen and (max-width: 600px) {   
-    #stop, #next, #play, #back {
+/* mobiles */
+@media only screen and (max-width: 600px) {
+    #stop,
+    #next,
+    #play,
+    #back {
         width: 22%;
-        /* min-width: 75px; */
         padding: 10px 2px;
         outline: none;
-        /* background-color: rgb(213, 228, 83); */
         border-radius: 5px;
         margin: 4px;
         font-weight: bold;
         font-size: 15px;
     }
-     
-     
-
     #progressBarContainer {
-        /* width: 98%; */
         height: 42px;
         padding: 5px;
-        /* margin: 5px 0; */
     }
-
-    /* pc    
-    #timer {     
-        width: 30%;
-        font-size: 18px;
-        float: left;
-    }
-     */
-    #timer {     
-        /* width: 24%; */
+    #timer {
         width: 80px;
         font-size: 18px;
-        line-height: 22px;  
-        /* margin: -44px 0 0px 0; */
-        /* border: 1px solid #858383; */
-        /* float: left; */
+        line-height: 22px;
     }
-    
-    /* pc
     #songSlider {
-        width: 60%;
-        min-width: 100px;
-        max-width: 350px;
-        height: 22px;
-        background-color: #ccc;
-        border-radius: 3px;         
-        position: absolute;
-        margin: 0 0 0 110px;
-    }
-     */
-    #songSlider {
-        width: 66%;        
+        width: 66%;
         height: 42px;
         background-color: #ccc;
         border-radius: 3px;
-        /* float: right; */
-        /* z-index: 1000; */
         margin: 0 0 0 70px;
         position: absolute;
     }
-    
-    #trackProgress{    
-        /* width: 30px; */
-        /* padding: 0 0 0 10px; */
+    #trackProgress {
         height: 42px;
         background-color: #78c55a;
-        /* background-color: orange; */
-        border-radius: 3px;   
-        /* margin: 0 0 0 0px;      */
+        border-radius: 3px;
     }
-    
     #trackNameContainer {
         position: absolute;
-        
         width: 70%;
-        height: 30px;      
-        padding: 0 5px 0 10px; 
-        line-height: 20px;  
-        font-size: 20px;        
-        /* overflow: hidden;  */
+        height: 30px;
+        padding: 0 5px 0 10px;
+        line-height: 20px;
+        font-size: 20px;
     }
-    
 }
-/* 
-@media only screen and (max-width: 350px) {   
-    #stop, #next, #play, #back {
-        width: 22%;
-        padding: 10px 4px;
-        /* margin: 4px 4px; */
-   
-
-/*
-
-
-/* Extra small devices (phones, 600px and down) */
-/* @media only screen and (max-width: 600px) {...}  */
-
-/* Small devices (portrait tablets and large phones, 600px and up) */
-/* @media only screen and (min-width: 600px) {...}  */
-
-/* Medium devices (landscape tablets, 768px and up) */
-/* @media only screen and (min-width: 768px) {...}  */
-
-/* Large devices (laptops/desktops, 992px and up) */
-/* @media only screen and (min-width: 992px) {...}  */
-
-/* Extra large devices (large laptops and desktops, 1200px and up) */
-/* @media only screen and (min-width: 1200px) {...} */
