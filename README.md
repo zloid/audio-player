@@ -1,10 +1,10 @@
-# Audio player on pure JS
+# Audio player on pure JS v0.1.23
 
 <h2>How it works</h2>   
 <ol>
   <li>Put HTML5 &lt;audio&gt; elements in a html page</li>
   <li>Connect player.js to the same html page (+ css)</li>
-  <li>Put &lt;div id="AudioPlayerByZloid"&gt;&lt;/div&gt; on the same html page. Bingo!</li>
+  <li>Put &lt;div id="AudioPlayerByZloid"&gt;&lt;/div&gt; in the same html page. Bingo!</li>
 </ol>
 
 <h2>Supported browsers:</h2>
@@ -18,4 +18,5 @@
 <h3>Mobiles</h3>
 <ul>
   <li>Internet Explorer (Windows Phone)</li>
+  <li>Chrome (Android)</li>
 </ul>

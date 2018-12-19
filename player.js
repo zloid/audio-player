@@ -1,3 +1,8 @@
+/*
+*   audio-player v0.1.23 
+*   https://github.com/zloid/audio-player
+*/
+;(() => {    
 //first block of variables
 let currentAudioNum = 0,
     isFirstPlayBool = true,
@@ -6,7 +11,7 @@ let currentAudioNum = 0,
     playPauseSwitchBool = false,
     allHTMLAudioElementsArr = document.querySelectorAll('audio'),
     allNewUIAudioElementsArr;
-
+    
 //FUNCTIONS
 function drawNewUi (allHTMLAudioElementsArr, newClassForNewUIAudioStr, putNewUIThereStr, oldUIAudioControlsBool = 'true', displayOldUIAudioStr = 'block') {
     let containerForNewUIAudioElement = document.querySelector(putNewUIThereStr);
@@ -259,7 +264,6 @@ function setTimePositionForAudio(event) {
 //DRAW NEW UI
 drawNewUi(allHTMLAudioElementsArr, 'newLiClass', '#AudioPlayerByZloid', false, 'none');
 playPauseNewUIAudioElements('.newLiClass');
-
 //second block of variables, necessary add after drawNewUi(), playPauseNewUIAudioElements()
 let stopButtonObj = document.querySelector('#stop'),
     backButtonObj = document.querySelector('#back'),
@@ -274,42 +278,36 @@ let stopButtonObj = document.querySelector('#stop'),
 window.addEventListener('resize', () => {
     resizeAudioProgressCover();
 })
-
 takeAudioProgressBarObj.addEventListener('click', setTimePositionForAudio);
-
 //play next song when prev. ended
 for (let i = 0; i < allHTMLAudioElementsArr.length; i++) { 
     allHTMLAudioElementsArr[i].addEventListener('ended', () => {  
             playNextAudio(i, allHTMLAudioElementsArr);
     })
 }    
-
 //event stop-button 
 stopButtonObj.onclick = stopCurrentAudio;
-
 //event nextButtonObj
 nextButtonObj.addEventListener('click', () => {
     playNextAudio(currentAudioNum, allHTMLAudioElementsArr);
 })
-
 //event button-back
 backButtonObj.addEventListener('click', () => {
     playPrevAudio(allHTMLAudioElementsArr);
 })
-
 //event playPause button
 playPauseButtonObj.addEventListener('click', () => {
     togglePlayToPause(currentAudioNum);     
 });
-
 //event random
 randomButtonObj.addEventListener('click', () => {
     randomSwitchBool ? randomSwitchBool = false : randomSwitchBool = true;
     playShuffle();
 })
-
 //event mute
 muteButtonObj.addEventListener('click', () => {
     muteSwitchBool ? muteSwitchBool = false : muteSwitchBool = true;
     toMuteUnmute(currentAudioNum);
 });
+//iife
+})();
