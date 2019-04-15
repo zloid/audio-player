@@ -1,4 +1,4 @@
-# Audio player on pure JS v0.1.23
+# Audio player on vanilla JS v0.1.23
 
 <h2>How it works</h2>   
 <ol>
