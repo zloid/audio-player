@@ -1,4 +1,6 @@
-# Audio player on vanilla JS v0.1.23
+# Audio player on vanilla JS
+
+## ES5 player.min.js compiled size: 1.62 KB gzipped (4.84KB uncompressed) after Closure Compiler, Advanced Optimization
 
 <h2>How it works</h2>   
 <ol>

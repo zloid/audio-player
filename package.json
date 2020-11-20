@@ -1,0 +1,20 @@
+{
+  "name": "audio-player",
+  "version": "0.1.24",
+  "description": "",
+  "main": "player.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zloid/audio-player.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zloid/audio-player/issues"
+  },
+  "homepage": "https://github.com/zloid/audio-player#readme"
+}

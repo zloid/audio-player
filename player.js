@@ -1,7 +1,10 @@
+"use strict"
+
 /*
-*   audio-player v0.1.23 
+*   JS audio player (ES6)
 *   https://github.com/zloid/audio-player
 */
+
 ;(() => {    
 //first block of variables
 let currentAudioNum = 0,
