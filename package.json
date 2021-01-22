@@ -1,6 +1,6 @@
 {
   "name": "audio-player",
-  "version": "0.1.26",
+  "version": "0.1.27",
   "homepage": "https://zloid.github.io/audio-player",
   "description": "",
   "main": "player.js",

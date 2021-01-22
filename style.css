@@ -112,7 +112,7 @@ body {
     color: #424242
 }
 
-#mute {
+#muteActive {
     width: 32px;
     height: 30px;
     margin: 0 0 0 50px;
@@ -124,7 +124,7 @@ body {
     border-radius: 5px;
 }
 
-#muteActive {
+#mute {
     width: 30px;
     height: 30px;
     margin: 0 0 0 50px;
