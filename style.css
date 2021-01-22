@@ -1,4 +1,5 @@
 body {
+    padding-top: 40px;
     font-size: 20px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     background-color: #f4ecd2;
@@ -10,6 +11,7 @@ body {
 
 #wrapper {
     width: 100%;
+    margin: 0 0 0 36%;
 }
 
 #AudioPlayerByZloid {
@@ -253,5 +255,9 @@ body {
         padding: 0 5px 0 10px;
         line-height: 20px;
         font-size: 20px;
+    }    
+    #wrapper {
+        width: 100%;
+        margin: 0 0 0 0;
     }
 }

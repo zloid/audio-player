@@ -1,6 +1,7 @@
 {
   "name": "audio-player",
-  "version": "0.1.24",
+  "version": "0.1.25",
+  "homepage": "https://zloid.github.io/audio-player",
   "description": "",
   "main": "player.js",
   "scripts": {
@@ -11,10 +12,9 @@
     "url": "git+https://github.com/zloid/audio-player.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "zloid",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/zloid/audio-player/issues"
-  },
-  "homepage": "https://github.com/zloid/audio-player#readme"
+  }
 }
