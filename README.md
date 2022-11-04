@@ -10,15 +10,12 @@
 </ol>
 
 <h2>Supported browsers:</h2>
-<h3>Desktop</h3>
+<h3>Windows >= 10, last version of</h3>
 <ul>
-  <li>The current version of Chrome (Windows)</li>
-  <li>The current version of Firefox (Windows)</li>
-  <li>The current version of Microsoft Edge (Windows)</li>
-  <li>Internet Explorer 11 (Windows)</li>
+  <li>Chrome, Brave</li>
 </ul>
 <h3>Mobiles</h3>
-<ul>
-  <li>Internet Explorer (Windows Phone)</li>
-  <li>Chrome (Android)</li>
+<ul>  
+  <li>Android: Chrome</li>  
+  <li>iOS >= 15: without sound muting</li>
 </ul>
